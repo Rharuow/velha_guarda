@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateChar1641051599792 implements MigrationInterface {
+export class CreateMeetQuestChar1641054441048 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "char",
+        name: "meet_quest_char",
         columns: [
           {
             name: "id",
@@ -12,47 +12,24 @@ export class CreateChar1641051599792 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: "name",
-            type: "varchar",
-            isUnique: true,
+            name: "start_at",
+            type: "timestamp",
           },
           {
-            name: "lvl",
-            type: "smallint",
-          },
-          {
-            name: "sex",
-            type: "enum",
-            enum: ["m", "f"],
-          },
-          {
-            name: "voc",
-            type: "enum",
-            enum: ["ms", "ed", "ek", "rp"],
-          },
-          {
-            name: "max_shared_lvl",
-            type: "smallint",
-          },
-          {
-            name: "min_shared_lvl",
-            type: "smallint",
-          },
-          {
-            name: "residence",
+            name: "location",
             type: "varchar",
           },
           {
-            name: "premium",
-            type: "boolean",
+            name: "hour",
+            type: "varchar",
           },
           {
-            name: "online",
-            type: "boolean",
+            name: "max_chars",
+            type: "smallint",
           },
           {
-            name: "user_id",
-            type: "uuid",
+            name: "min_chars",
+            type: "smallint",
           },
           {
             name: "created_at",
@@ -64,13 +41,31 @@ export class CreateChar1641051599792 implements MigrationInterface {
             type: "timestamp",
             default: "now()",
           },
+          {
+            name: "char_id",
+            type: "uuid",
+            isNullable: true,
+          },
+          {
+            name: "quest_id",
+            type: "uuid",
+            isNullable: true,
+          },
         ],
         foreignKeys: [
           {
-            name: "FKUser",
-            columnNames: ["user_id"],
+            name: "FKchar",
+            columnNames: ["char_id"],
             referencedColumnNames: ["id"],
-            referencedTableName: "user",
+            referencedTableName: "char",
+            onDelete: "CASCADE",
+            onUpdate: "SET NULL",
+          },
+          {
+            name: "FKquest",
+            columnNames: ["quest_id"],
+            referencedColumnNames: ["id"],
+            referencedTableName: "quest",
             onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
@@ -80,6 +75,6 @@ export class CreateChar1641051599792 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("char");
+    await queryRunner.dropTable("meet_quest_char");
   }
 }

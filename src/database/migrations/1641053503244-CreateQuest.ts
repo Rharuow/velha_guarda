@@ -20,6 +20,16 @@ export class CreateQuest1641053503244 implements MigrationInterface {
             name: "lvl_required",
             type: "smallint",
           },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
       })
     );

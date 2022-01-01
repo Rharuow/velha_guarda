@@ -20,6 +20,16 @@ export class CreateBoss1641053830952 implements MigrationInterface {
             name: "lvl_required",
             type: "smallint",
           },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
       })
     );

@@ -4,7 +4,7 @@ export class CreateChar1641051599792 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "char",
+        name: "chars",
         columns: [
           {
             name: "id",
@@ -70,7 +70,7 @@ export class CreateChar1641051599792 implements MigrationInterface {
             name: "FKUser",
             columnNames: ["user_id"],
             referencedColumnNames: ["id"],
-            referencedTableName: "user",
+            referencedTableName: "users",
             onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
@@ -80,6 +80,6 @@ export class CreateChar1641051599792 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("char");
+    await queryRunner.dropTable("chars");
   }
 }

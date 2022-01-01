@@ -4,7 +4,7 @@ export class CreateMeetQuestChar1641054441048 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "meet_quest_char",
+        name: "meet_quest_chars",
         columns: [
           {
             name: "id",
@@ -57,7 +57,7 @@ export class CreateMeetQuestChar1641054441048 implements MigrationInterface {
             name: "FKchar",
             columnNames: ["char_id"],
             referencedColumnNames: ["id"],
-            referencedTableName: "char",
+            referencedTableName: "chars",
             onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
@@ -65,7 +65,7 @@ export class CreateMeetQuestChar1641054441048 implements MigrationInterface {
             name: "FKquest",
             columnNames: ["quest_id"],
             referencedColumnNames: ["id"],
-            referencedTableName: "quest",
+            referencedTableName: "quests",
             onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
@@ -75,6 +75,6 @@ export class CreateMeetQuestChar1641054441048 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("meet_quest_char");
+    await queryRunner.dropTable("meet_quest_chars");
   }
 }

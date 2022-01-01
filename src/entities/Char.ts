@@ -1,5 +1,17 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
+import { MeetBossChar } from "./BossesToChars";
+import { QuestsToChars } from "./QuestsToChars";
 import { User } from "./User";
 
 export enum CharSex {
@@ -55,8 +67,23 @@ export class Char {
   @Column()
   user_id: string;
 
-  @ManyToOne(() => User, (user) => user.chars)
-  user: User;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @JoinColumn({ name: "user_id" })
+  @ManyToOne(() => User, (user) => user.chars, {
+    onDelete: "CASCADE",
+  })
+  user!: User;
+
+  @OneToMany(() => MeetBossChar, (meetBossChar) => meetBossChar.char)
+  charToBosses: Array<MeetBossChar>;
+
+  @OneToMany(() => QuestsToChars, (questsToChars) => questsToChars.char)
+  charToQuests: Array<QuestsToChars>;
 
   constructor() {
     if (!this.id) this.id = uuid();

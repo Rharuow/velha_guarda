@@ -2,15 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { Char } from "./Char";
+import { QuestsToChars } from "./QuestsToChars";
 
-@Entity("users")
-export class User {
+@Entity("quests")
+export class Quest {
   @PrimaryColumn()
   readonly id: string;
 
@@ -18,19 +19,7 @@ export class User {
   name: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  token: string;
-
-  @Column()
-  is_active: boolean;
-
-  @Column()
-  is_admin: boolean;
+  lvl_required: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -38,10 +27,8 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user, {
-    onDelete: "CASCADE",
-  })
-  chars: Array<Char>;
+  @OneToMany(() => QuestsToChars, (questsToChars) => questsToChars.quest)
+  questToChars: Array<QuestsToChars>;
 
   constructor() {
     if (!this.id) this.id = uuid();

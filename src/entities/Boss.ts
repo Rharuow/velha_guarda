@@ -7,10 +7,10 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { Char } from "./Char";
+import { MeetBossChar } from "./BossesToChars";
 
-@Entity("users")
-export class User {
+@Entity("bosses")
+export class Boss {
   @PrimaryColumn()
   readonly id: string;
 
@@ -18,19 +18,7 @@ export class User {
   name: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  token: string;
-
-  @Column()
-  is_active: boolean;
-
-  @Column()
-  is_admin: boolean;
+  lvl_required: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -38,10 +26,8 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user, {
-    onDelete: "CASCADE",
-  })
-  chars: Array<Char>;
+  @OneToMany(() => MeetBossChar, (meet) => meet.boss)
+  bossToChars!: Array<MeetBossChar>;
 
   constructor() {
     if (!this.id) this.id = uuid();

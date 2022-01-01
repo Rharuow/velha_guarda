@@ -2,35 +2,34 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Char } from "./Char";
+import { Quest } from "./Quest";
 
-@Entity("users")
-export class User {
+Entity("quests_to_chars");
+export class QuestsToChars {
   @PrimaryColumn()
   readonly id: string;
 
   @Column()
-  name: string;
+  start_at: Date;
 
   @Column()
-  email: string;
+  location: string;
 
   @Column()
-  password: string;
+  hours: string;
 
   @Column()
-  token: string;
+  max_char: number;
 
   @Column()
-  is_active: boolean;
-
-  @Column()
-  is_admin: boolean;
+  min_char: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -38,10 +37,17 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user, {
-    onDelete: "CASCADE",
-  })
-  chars: Array<Char>;
+  @Column()
+  quest_id: string;
+
+  @Column()
+  char_id: string;
+
+  @ManyToOne(() => Quest, (quest) => quest.questToChars)
+  quest: Quest;
+
+  @ManyToOne(() => Char, (char) => char.charToQuests)
+  char: Char;
 
   constructor() {
     if (!this.id) this.id = uuid();

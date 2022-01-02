@@ -10,8 +10,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { MeetBossChar } from "./BossesToChars";
-import { QuestsToChars } from "./QuestsToChars";
+import { Meet } from "./Meet";
 import { User } from "./User";
 
 export enum CharSex {
@@ -79,11 +78,8 @@ export class Char {
   })
   user!: User;
 
-  @OneToMany(() => MeetBossChar, (meetBossChar) => meetBossChar.char)
-  charToBosses: Array<MeetBossChar>;
-
-  @OneToMany(() => QuestsToChars, (questsToChars) => questsToChars.char)
-  charToQuests: Array<QuestsToChars>;
+  @OneToMany(() => Meet, (meet) => meet.char)
+  meetings: Array<Meet>;
 
   constructor() {
     if (!this.id) this.id = uuid();

@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateQuest1641053503244 implements MigrationInterface {
+export class CreateEvent1641135596643 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "quests",
+        name: "events",
         columns: [
           {
             name: "id",
@@ -17,8 +17,28 @@ export class CreateQuest1641053503244 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: "lvl_required",
+            name: "coldown",
             type: "smallint",
+          },
+          {
+            name: "lvl_min",
+            type: "smallint",
+            default: 0,
+          },
+          {
+            name: "lvl_max",
+            type: "smallint",
+            default: 1000000,
+          },
+          {
+            name: "max_chars",
+            type: "smallint",
+            default: 1000000,
+          },
+          {
+            name: "min_chars",
+            type: "smallint",
+            default: 0,
           },
           {
             name: "created_at",
@@ -36,6 +56,6 @@ export class CreateQuest1641053503244 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("quests");
+    await queryRunner.dropTable("events");
   }
 }

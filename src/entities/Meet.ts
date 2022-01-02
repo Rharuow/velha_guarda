@@ -2,17 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Char } from "./Char";
-import { Quest } from "./Quest";
+import { Event } from "./Event";
 
-Entity("quests_to_chars");
-export class QuestsToChars {
+@Entity("meetings")
+export class Meet {
   @PrimaryColumn()
   readonly id: string;
 
@@ -25,12 +24,6 @@ export class QuestsToChars {
   @Column()
   hours: string;
 
-  @Column()
-  max_char: number;
-
-  @Column()
-  min_char: number;
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -38,16 +31,16 @@ export class QuestsToChars {
   updated_at: Date;
 
   @Column()
-  quest_id: string;
-
-  @Column()
   char_id: string;
 
-  @ManyToOne(() => Quest, (quest) => quest.questToChars)
-  quest: Quest;
+  @Column()
+  event_id: string;
 
-  @ManyToOne(() => Char, (char) => char.charToQuests)
+  @ManyToOne(() => Char, (char) => char.meetings)
   char: Char;
+
+  @ManyToOne(() => Event, (event) => event.meetings)
+  event: Event;
 
   constructor() {
     if (!this.id) this.id = uuid();

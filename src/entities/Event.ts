@@ -2,16 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { QuestsToChars } from "./QuestsToChars";
+import { Meet } from "./Meet";
 
-@Entity("quests")
-export class Quest {
+@Entity("events")
+export class Event {
   @PrimaryColumn()
   readonly id: string;
 
@@ -19,7 +18,19 @@ export class Quest {
   name: string;
 
   @Column()
-  lvl_required: number;
+  coldown: number;
+
+  @Column()
+  lvl_min: number;
+
+  @Column()
+  lvl_max: number;
+
+  @Column()
+  min_chars: number;
+
+  @Column()
+  max_chars: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -27,8 +38,8 @@ export class Quest {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => QuestsToChars, (questsToChars) => questsToChars.quest)
-  questToChars: Array<QuestsToChars>;
+  @OneToMany(() => Meet, (meet) => meet.event)
+  meetings: Array<Meet>;
 
   constructor() {
     if (!this.id) this.id = uuid();

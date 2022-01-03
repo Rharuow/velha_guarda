@@ -3,7 +3,6 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
@@ -72,10 +71,7 @@ export class Char {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @JoinColumn({ name: "user_id" })
-  @ManyToOne(() => User, (user) => user.chars, {
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(() => User, (user) => user.chars)
   user!: User;
 
   @OneToMany(() => Meet, (meet) => meet.char)

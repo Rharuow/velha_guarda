@@ -38,9 +38,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user, {
-    onDelete: "CASCADE",
-  })
+  @OneToMany(() => Char, (char) => char.user)
   chars: Array<Char>;
 
   constructor() {

@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
 import { CreateUser } from "../../types/User";
@@ -15,12 +16,24 @@ export class CreateUserService {
     return result;
   }
 
-  async execute({ name, chars, email, is_admin, password }: CreateUser) {
+  async execute({
+    name,
+    char,
+    email,
+    is_admin,
+    is_active,
+    password,
+  }: CreateUser) {
     const userRepository = getCustomRepository(UserRepository);
 
     const createCharService = new CreateCharService();
 
     const token = this.generateConfirmationToken();
+
+    const passwordHashed = await hash(
+      password,
+      parseInt(process.env.HASH_SALTS)
+    );
 
     try {
       const user = userRepository.create({
@@ -28,14 +41,14 @@ export class CreateUserService {
         email,
         is_admin,
         token,
-        password,
+        is_active,
+        password: passwordHashed,
       });
 
-      chars.forEach(async (char) => {
-        await createCharService.execute(char);
-      });
+      await createCharService.execute({ ...char, user_id: user.id });
 
       await userRepository.save(user);
+      console.log("User created with success");
 
       return {
         status: 200,
@@ -44,7 +57,7 @@ export class CreateUserService {
       };
     } catch (error) {
       console.log("create user service");
-      throw new Error(error.message);
+      throw new Error(`create user service ${error.message}`);
     }
   }
 }

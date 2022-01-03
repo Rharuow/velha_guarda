@@ -38,7 +38,7 @@ export class Event {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Meet, (meet) => meet.event)
+  @OneToMany(() => Meet, (meet) => meet.event, { onDelete: "CASCADE" })
   meetings: Array<Meet>;
 
   constructor() {

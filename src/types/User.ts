@@ -2,9 +2,10 @@ import { Char } from "../entities/Char";
 
 export type CreateUser = {
   name: string;
-  chars: Array<Char>;
+  char: Char;
   email: string;
   is_admin: boolean;
+  is_active: boolean;
   password: string;
   secret: string;
   token: string;

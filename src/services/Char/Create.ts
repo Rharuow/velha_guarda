@@ -17,6 +17,8 @@ export class CreateCharService {
   }: CreateChar) {
     const charRepository = getCustomRepository(CharRepository);
 
+    console.log("debug = ", user_id);
+
     try {
       const char = charRepository.create({
         name,
@@ -33,17 +35,16 @@ export class CreateCharService {
 
       await charRepository.save(char);
 
+      console.log("Char created with success");
+
       return {
         status: 200,
         message: "Char created with success",
         record: char,
       };
     } catch (error) {
-      return {
-        status: 401,
-        message: error.message,
-        where: "create char service",
-      };
+      console.log("Error create char service = ", error.message);
+      throw new Error(`create char service ${error.message}`);
     }
   }
 }

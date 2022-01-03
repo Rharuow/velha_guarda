@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
@@ -38,7 +39,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user)
+  @OneToMany(() => Char, (char) => char.user, { onDelete: "CASCADE" })
   chars: Array<Char>;
 
   constructor() {

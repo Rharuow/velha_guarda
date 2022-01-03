@@ -36,10 +36,10 @@ export class Meet {
   @Column()
   event_id: string;
 
-  @ManyToOne(() => Char, (char) => char.meetings)
+  @ManyToOne(() => Char, (char) => char.meetings, { onDelete: "CASCADE" })
   char: Char;
 
-  @ManyToOne(() => Event, (event) => event.meetings)
+  @ManyToOne(() => Event, (event) => event.meetings, { onDelete: "CASCADE" })
   event: Event;
 
   constructor() {

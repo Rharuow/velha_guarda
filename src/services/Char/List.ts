@@ -13,11 +13,7 @@ export class ListCharService {
         chars,
       };
     } catch (error) {
-      return {
-        status: 401,
-        message: error.message,
-        where: "create user service",
-      };
+      throw new Error(`list char service ${error.message}`);
     }
   }
 }

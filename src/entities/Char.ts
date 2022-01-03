@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
@@ -71,10 +72,12 @@ export class Char {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.chars)
-  user!: User;
+  @ManyToOne(() => User, (user) => user.chars, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
-  @OneToMany(() => Meet, (meet) => meet.char)
+  @OneToMany(() => Meet, (meet) => meet.char, { onDelete: "CASCADE" })
+  @JoinTable()
   meetings: Array<Meet>;
 
   constructor() {

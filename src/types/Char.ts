@@ -1,4 +1,5 @@
 import { CharSex, CharVoc } from "../entities/Char";
+import { User } from "../entities/User";
 
 export type CreateChar = {
   name: string;

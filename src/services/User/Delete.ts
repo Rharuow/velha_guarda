@@ -1,9 +1,11 @@
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
+import { DeleteCharService } from "../Char/Delete";
 
 export class DeleteUserService {
   async execute(email: string) {
     const userRepository = getCustomRepository(UserRepository);
+    const deleteCharService = new DeleteCharService();
 
     try {
       const user = await userRepository.findOne({ email });
@@ -16,6 +18,8 @@ export class DeleteUserService {
         };
 
       await userRepository.delete(user.id);
+
+      await deleteCharService.execute(user.id);
 
       return {
         status: 200,

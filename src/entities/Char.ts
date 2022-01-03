@@ -73,7 +73,7 @@ export class Char {
   updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.chars, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "user_id" })
+  @JoinColumn()
   user: User;
 
   @OneToMany(() => Meet, (meet) => meet.char, { onDelete: "CASCADE" })

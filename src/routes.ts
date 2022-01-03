@@ -1,13 +1,18 @@
 import { Request, Response, Router } from "express";
+import { CreateSessionController } from "./controlers/Session/Create";
 import { CreateUserController } from "./controlers/User/Create";
 import { DeleteUserController } from "./controlers/User/Delete";
-import { csrfToken } from "./middlewares/csrfToken";
+import { ListUserController } from "./controlers/User/List";
 
 const router = Router();
 
 // user controllers
 const createUserController = new CreateUserController();
 const deleteUserCOntroller = new DeleteUserController();
+const listUserController = new ListUserController();
+
+// session controller
+const createSessionController = new CreateSessionController();
 
 router.get("/", (req: Request, res: Response) =>
   res.send(
@@ -15,7 +20,12 @@ router.get("/", (req: Request, res: Response) =>
   )
 );
 
-router.post("/users", csrfToken, createUserController.handle);
-router.delete("/users/:email", csrfToken, deleteUserCOntroller.handle);
+// user resourcers
+router.get("/users", listUserController.handle);
+router.post("/users", createUserController.handle);
+router.delete("/users/:email", deleteUserCOntroller.handle);
+
+// session resourcers
+router.post("/session", createSessionController.handle);
 
 export default router;

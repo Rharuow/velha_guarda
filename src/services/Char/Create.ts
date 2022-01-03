@@ -17,8 +17,6 @@ export class CreateCharService {
   }: CreateChar) {
     const charRepository = getCustomRepository(CharRepository);
 
-    console.log("debug = ", user_id);
-
     try {
       const char = charRepository.create({
         name,

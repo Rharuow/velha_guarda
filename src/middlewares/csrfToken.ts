@@ -7,9 +7,10 @@ export async function csrfToken(
 ) {
   const { csrf } = req.headers as { csrf: string };
 
-  if (csrf.includes(process.env.SECRET)) return next();
+  if (!csrf || !csrf.includes(process.env.SECRET))
+    return res.status(401).json({
+      message: "There ins't csrf",
+    });
 
-  return res.status(401).json({
-    message: "There ins't csrf",
-  });
+  return next();
 }

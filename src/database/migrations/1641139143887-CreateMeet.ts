@@ -21,7 +21,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
             columnNames: ["char_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "chars",
-            onDelete: "CASCADE",
+            onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },
           {
@@ -29,7 +29,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
             columnNames: ["event_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "events",
-            onDelete: "CASCADE",
+            onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },
         ],

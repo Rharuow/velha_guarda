@@ -39,8 +39,9 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Char, (char) => char.user, { onDelete: "CASCADE" })
-  chars: Array<Char>;
+  @JoinColumn({ name: "chars" })
+  @OneToMany(() => Char, (char) => char.user)
+  chars: Char[];
 
   constructor() {
     if (!this.id) this.id = uuid();

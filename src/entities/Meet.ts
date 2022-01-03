@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -30,16 +31,11 @@ export class Meet {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column()
-  char_id: string;
-
-  @Column()
-  event_id: string;
-
-  @ManyToOne(() => Char, (char) => char.meetings, { onDelete: "CASCADE" })
+  @ManyToOne(() => Char, (char) => char.meetings)
   char: Char;
 
-  @ManyToOne(() => Event, (event) => event.meetings, { onDelete: "CASCADE" })
+  @ManyToOne(() => Event, (event) => event.meetings)
+  @JoinTable()
   event: Event;
 
   constructor() {

@@ -19,7 +19,7 @@ export class DeleteUserService {
 
       await userRepository.delete(user.id);
 
-      await deleteCharService.execute(user.id);
+      // await deleteCharService.execute(user.id);
 
       return {
         status: 200,

@@ -9,4 +9,5 @@ export type CreateUser = {
   password: string;
   secret: string;
   token: string;
+  chars: Array<Char>;
 };

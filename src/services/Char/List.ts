@@ -10,7 +10,8 @@ export class ListCharService {
 
       return {
         status: 200,
-        chars,
+        message: "Chars list with sucess",
+        record: chars,
       };
     } catch (error) {
       throw new Error(`list char service ${error.message}`);

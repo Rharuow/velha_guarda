@@ -45,11 +45,10 @@ export class CreateUserService {
         password: passwordHashed,
       });
 
-      await createCharService.execute({ ...char, user_id: user.id });
-
       await userRepository.save(user);
       console.log("User created with success");
 
+      await createCharService.execute({ ...char, user_id: user.id });
       return {
         status: 200,
         message: "User created with success",

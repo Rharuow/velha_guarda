@@ -6,7 +6,7 @@ export class ListUserService {
     const userRepository = getCustomRepository(UserRepository);
 
     try {
-      const users = await userRepository.find();
+      const users = await userRepository.find({ relations: ["chars"] });
 
       if (users.length <= 0)
         return {

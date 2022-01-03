@@ -12,4 +12,5 @@ export type CreateChar = {
   sex: CharSex;
   voc: CharVoc;
   user_id: string;
+  user: User;
 };

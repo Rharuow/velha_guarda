@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
@@ -38,7 +39,7 @@ export class Event {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Meet, (meet) => meet.event, { onDelete: "CASCADE" })
+  @OneToMany(() => Meet, (meet) => meet.event)
   meetings: Array<Meet>;
 
   constructor() {

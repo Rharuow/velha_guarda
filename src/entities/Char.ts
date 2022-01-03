@@ -72,12 +72,11 @@ export class Char {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.chars, { onDelete: "CASCADE" })
-  @JoinColumn()
+  @JoinColumn({ name: "user_id" })
+  @ManyToOne(() => User, (user) => user.chars)
   user: User;
 
-  @OneToMany(() => Meet, (meet) => meet.char, { onDelete: "CASCADE" })
-  @JoinTable()
+  @OneToMany(() => Meet, (meet) => meet.char)
   meetings: Array<Meet>;
 
   constructor() {

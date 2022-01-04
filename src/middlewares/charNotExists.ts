@@ -11,9 +11,9 @@ export async function charNotExists(
 
   const listCharService = new ListCharService();
 
-  const { chars } = await listCharService.execute();
+  const { record } = await listCharService.execute();
 
-  const charAlreadyExists = chars.filter((ch) => ch.name === char.name);
+  const charAlreadyExists = record.filter((ch) => ch.name === char.name);
 
   if (charAlreadyExists.length === 0) return next();
 

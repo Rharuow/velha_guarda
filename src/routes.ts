@@ -6,6 +6,8 @@ import { DeleteUserController } from "./controllers/User/Delete";
 import { GetUserByTokenController } from "./controllers/Session/GetUserByToken";
 import { ListUserController } from "./controllers/User/List";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { GetUserController } from "./controllers/User/Get";
+import { GetUserCharController } from "./controllers/User/GetUserChar";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -18,6 +20,8 @@ router.get("/", (req: Request, res: Response) =>
 const createUserController = new CreateUserController();
 const deleteUserCOntroller = new DeleteUserController();
 const listUserController = new ListUserController();
+const getUserController = new GetUserController();
+const getUserCharController = new GetUserCharController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -35,6 +39,12 @@ router.delete(
   "/users/:email",
   ensureAuthenticated,
   deleteUserCOntroller.handle
+);
+router.get("/users/:id", ensureAuthenticated, getUserController.handle);
+router.get(
+  "/users/:user_id/chars/:char_id",
+  ensureAuthenticated,
+  getUserCharController.handle
 );
 
 // session resourcers

@@ -8,6 +8,7 @@ import { ListUserController } from "./controllers/User/List";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { GetUserController } from "./controllers/User/Get";
 import { GetUserCharController } from "./controllers/User/GetUserChar";
+import { GetCharController } from "./controllers/Char/Get";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -30,6 +31,7 @@ const getUserByTokenController = new GetUserByTokenController();
 //char controller
 
 const listCharsController = new ListCharsController();
+const getCharController = new GetCharController();
 
 // user resourcers
 
@@ -53,5 +55,6 @@ router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 
 // char resourcers
 router.get("/chars", ensureAuthenticated, listCharsController.handle);
+router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
 
 export default router;

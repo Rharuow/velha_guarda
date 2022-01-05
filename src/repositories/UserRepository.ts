@@ -7,12 +7,9 @@ import { CharRepository } from "./CharRepository";
 export class UserRepository extends Repository<User> {
   async findCharByUser(user_id: string, char_id: string) {
     const charRepository = getCustomRepository(CharRepository);
-
     try {
       const user = await this.findOneOrFail(user_id);
-
       const char = await charRepository.findOneOrFail(char_id);
-
       return {
         user: {
           id: user.id,
@@ -31,7 +28,7 @@ export class UserRepository extends Repository<User> {
         },
       };
     } catch (error) {
-      console.log("");
+      console.log("Repository error = ", error.message);
       throw new Error(` ${error.message}`);
     }
   }

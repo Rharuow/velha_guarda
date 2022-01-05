@@ -40,7 +40,7 @@ export class User {
   updated_at: Date;
 
   @JoinColumn({ name: "chars" })
-  @OneToMany(() => Char, (char) => char.user)
+  @OneToMany((type) => Char, (char) => char.user, { onDelete: "CASCADE" })
   chars: Char[];
 
   constructor() {

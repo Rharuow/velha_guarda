@@ -31,10 +31,12 @@ export class Meet {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Char, (char) => char.meetings)
+  @ManyToOne((type) => Char, (char) => char.meetings, { onDelete: "CASCADE" })
   char: Char;
 
-  @ManyToOne(() => Event, (event) => event.meetings)
+  @ManyToOne((type) => Event, (event) => event.meetings, {
+    onDelete: "CASCADE",
+  })
   @JoinTable()
   event: Event;
 

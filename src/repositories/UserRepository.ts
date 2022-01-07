@@ -18,7 +18,7 @@ export class UserRepository extends Repository<User> {
     try {
       const userAlreadyExits = await this.createQueryBuilder("user")
         .where("user.name = :name", { name })
-        .orWhere("user.name = :email", { email })
+        .orWhere("user.email = :email", { email })
         .getOne();
 
       if (userAlreadyExits)

@@ -42,9 +42,8 @@ export class CreateUserService {
 
       let hasChar = { message: "", status: false };
 
-      chars.forEach(async (char) => {
+      for (const char of chars)
         hasChar = await charRepository.charExists(char.name);
-      });
 
       if (hasUser.status || hasChar.status)
         throw new Error(hasUser.status ? hasUser.message : hasChar.message);
@@ -71,7 +70,7 @@ export class CreateUserService {
       };
     } catch (error) {
       console.log("create user service");
-      throw new Error(`create user service ${error.message}`);
+      throw new Error(`${error.message}`);
     }
   }
 }

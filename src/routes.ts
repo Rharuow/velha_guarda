@@ -7,8 +7,8 @@ import { GetUserByTokenController } from "./controllers/Session/GetUserByToken";
 import { ListUserController } from "./controllers/User/List";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { GetUserController } from "./controllers/User/Get";
-import { GetUserCharController } from "./controllers/User/GetUserChar";
 import { GetCharController } from "./controllers/Char/Get";
+import { GetMembersUserController } from "./controllers/User/GetMembers";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -19,10 +19,10 @@ router.get("/", (req: Request, res: Response) =>
 
 // user controllers
 const createUserController = new CreateUserController();
-const deleteUserCOntroller = new DeleteUserController();
+const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
-const getUserCharController = new GetUserCharController();
+const getMembersUserController = new GetMembersUserController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -40,14 +40,10 @@ router.post("/users", createUserController.handle);
 router.delete(
   "/users/:email",
   ensureAuthenticated,
-  deleteUserCOntroller.handle
+  deleteUserController.handle
 );
 router.get("/users/:id", ensureAuthenticated, getUserController.handle);
-router.get(
-  "/users/:user_id/chars/:char_id",
-  ensureAuthenticated,
-  getUserCharController.handle
-);
+router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
 // session resourcers
 router.post("/session", createSessionController.handle);

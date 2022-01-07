@@ -1,19 +1,9 @@
-import { EntityRepository, getCustomRepository, Repository } from "typeorm";
+import { EntityRepository, Repository } from "typeorm";
 import { User } from "../entities/User";
-import { userWithCharsSerializer } from "../serializers/User";
+import { userWithCharSerializer } from "../serializers/User";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async findCharByUser(user_id: string, char_id: string) {
-    try {
-      const user = await userWithCharsSerializer(user_id, char_id);
-      return user;
-    } catch (error) {
-      console.log("Repository error = ", error.message);
-      throw new Error(` ${error.message}`);
-    }
-  }
-
   async userExists({ email, name }: { email: string; name: string }) {
     try {
       const userAlreadyExits = await this.createQueryBuilder("user")

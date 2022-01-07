@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
+import { userSerializer } from "../../serializers/User";
 import { DeleteCharService } from "../Char/Delete";
 
 export class DeleteUserService {
@@ -24,7 +25,7 @@ export class DeleteUserService {
       return {
         status: 200,
         message: "User was deleted with success",
-        record: user,
+        record: userSerializer(user),
       };
     } catch (error) {
       console.log("Delete user service");

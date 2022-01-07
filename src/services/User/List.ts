@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
+import { usersWithCharsSerializer } from "../../serializers/User";
 
 export class ListUserService {
   async execute() {
@@ -18,7 +19,7 @@ export class ListUserService {
       return {
         status: 200,
         message: "User was listed with success",
-        record: users,
+        record: usersWithCharsSerializer(users),
       };
     } catch (error) {
       console.log("List user service");

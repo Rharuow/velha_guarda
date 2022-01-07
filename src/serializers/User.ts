@@ -1,15 +1,8 @@
-import { getCustomRepository } from "typeorm";
 import { Char } from "../entities/Char";
-import { CharRepository } from "../repositories/CharRepository";
-import { UserRepository } from "../repositories/UserRepository";
+import { User } from "../entities/User";
 
-const userWithCharsSerializer = async (user_id: string, char_id: string) => {
-  const charRepository = getCustomRepository(CharRepository);
-  const userRepository = getCustomRepository(UserRepository);
+const userWithCharSerializer = (user: User, char: Char) => {
   try {
-    const user = await userRepository.findOneOrFail(user_id);
-    const char = await charRepository.findOneOrFail(char_id);
-
     return {
       user: {
         id: user.id,
@@ -28,9 +21,80 @@ const userWithCharsSerializer = async (user_id: string, char_id: string) => {
       },
     };
   } catch (error) {
-    console.log("Serializer error = ", error.message);
+    console.log("userWithCharSerializer error = ", error.message);
     throw new Error(` ${error.message}`);
   }
 };
 
-export { userWithCharsSerializer };
+const userSerializer = (user: User) => {
+  try {
+    return {
+      user: {
+        id: user.id,
+        is_active: user.is_active,
+        is_admin: user.is_admin,
+        name: user.name,
+        email: user.email,
+      } as {
+        id: string;
+        is_active: boolean;
+        is_admin: boolean;
+        name: string;
+        email: string;
+      },
+    };
+  } catch (error) {
+    console.log("userSerializer error = ", error.message);
+    throw new Error(` ${error.message}`);
+  }
+};
+
+const userWithCharsSerializer = (user: User, chars: Array<Char>) => {
+  try {
+    return {
+      user: {
+        id: user.id,
+        is_active: user.is_active,
+        is_admin: user.is_admin,
+        name: user.name,
+        email: user.email,
+        chars,
+      } as {
+        id: string;
+        is_active: boolean;
+        is_admin: boolean;
+        name: string;
+        email: string;
+        chars: Array<Char>;
+      },
+    };
+  } catch (error) {
+    console.log("userWithCharSerializer error = ", error.message);
+    throw new Error(` ${error.message}`);
+  }
+};
+
+const usersWithCharsSerializer = (users: Array<User>) => {
+  const usersSerilized = users.map((user) => ({
+    id: user.id,
+    is_active: user.is_active,
+    is_admin: user.is_admin,
+    name: user.name,
+    email: user.email,
+    chars: user.chars,
+  }));
+
+  try {
+    return usersSerilized;
+  } catch (error) {
+    console.log("userWithCharSerializer error = ", error.message);
+    throw new Error(` ${error.message}`);
+  }
+};
+
+export {
+  userWithCharSerializer,
+  userSerializer,
+  userWithCharsSerializer,
+  usersWithCharsSerializer,
+};

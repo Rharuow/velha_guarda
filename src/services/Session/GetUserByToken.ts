@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 import { UserRepository } from "../../repositories/UserRepository";
 import { Session } from "../../types/Session";
+import { userWithCharsSerializer } from "../../serializers/User";
 
 export class GetUserByTokenService {
   async execute(token: string) {
@@ -21,7 +22,7 @@ export class GetUserByTokenService {
       return {
         status: 200,
         message: "User was showed with success",
-        record: currentUser,
+        record: userWithCharsSerializer(currentUser, currentUser.chars).user,
       };
     } catch (error) {
       console.log("Get user by token service");

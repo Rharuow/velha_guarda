@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetUserByTokenService } from "../../services/User/GetUserByToken";
+import { GetUserByTokenService } from "../../services/Session/GetUserByToken";
 
 export class GetUserByTokenController {
   async handle(req: Request, res: Response) {

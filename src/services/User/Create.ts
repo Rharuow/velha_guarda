@@ -2,6 +2,7 @@ import { hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import { CharRepository } from "../../repositories/CharRepository";
 import { UserRepository } from "../../repositories/UserRepository";
+import { userWithCharsSerializer } from "../../serializers/User";
 import { CreateUser } from "../../types/User";
 import { CreateCharService } from "../Char/Create";
 
@@ -66,10 +67,10 @@ export class CreateUserService {
       return {
         status: 200,
         message: "User created with success",
-        record: user,
+        record: userWithCharsSerializer(user, chars),
       };
     } catch (error) {
-      console.log("create user service");
+      console.log(`create user service > ${error.message}`);
       throw new Error(`${error.message}`);
     }
   }

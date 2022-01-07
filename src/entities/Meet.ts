@@ -13,7 +13,9 @@ import { Event } from "./Event";
 
 @Entity("meetings")
 export class Meet {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    unique: true,
+  })
   readonly id: string;
 
   @Column()

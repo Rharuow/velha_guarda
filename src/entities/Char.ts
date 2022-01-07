@@ -27,10 +27,14 @@ export enum CharVoc {
 
 @Entity("chars")
 export class Char {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    unique: true,
+  })
   readonly id: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   name: string;
 
   @Column()

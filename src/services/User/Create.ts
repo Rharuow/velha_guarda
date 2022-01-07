@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
+import { CharRepository } from "../../repositories/CharRepository";
 import { UserRepository } from "../../repositories/UserRepository";
 import { CreateUser } from "../../types/User";
 import { CreateCharService } from "../Char/Create";
@@ -18,13 +19,14 @@ export class CreateUserService {
 
   async execute({
     name,
-    char,
+    chars,
     email,
     is_admin,
     is_active,
     password,
   }: CreateUser) {
     const userRepository = getCustomRepository(UserRepository);
+    const charRepository = getCustomRepository(CharRepository);
 
     const createCharService = new CreateCharService();
 
@@ -36,6 +38,17 @@ export class CreateUserService {
     );
 
     try {
+      const hasUser = await userRepository.userExists({ name, email });
+
+      let hasChar = { message: "", status: false };
+
+      chars.forEach(async (char) => {
+        hasChar = await charRepository.charExists(char.name);
+      });
+
+      if (hasUser.status || hasChar.status)
+        throw new Error(hasUser.status ? hasUser.message : hasChar.message);
+
       const user = userRepository.create({
         name,
         email,
@@ -48,7 +61,9 @@ export class CreateUserService {
       await userRepository.save(user);
       console.log("User created with success");
 
-      await createCharService.execute({ ...char, user_id: user.id });
+      chars.forEach(async (char) => {
+        await createCharService.execute({ ...char, user_id: user.id });
+      });
       return {
         status: 200,
         message: "User created with success",

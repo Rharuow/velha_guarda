@@ -12,10 +12,14 @@ import { Meet } from "./Meet";
 
 @Entity("events")
 export class Event {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    unique: true,
+  })
   readonly id: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   name: string;
 
   @Column()

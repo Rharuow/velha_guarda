@@ -1,35 +1,33 @@
 import { EntityRepository, getCustomRepository, Repository } from "typeorm";
-import { Char } from "../entities/Char";
 import { User } from "../entities/User";
-import { CharRepository } from "./CharRepository";
+import { userWithCharsSerializer } from "../serializers/User";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async findCharByUser(user_id: string, char_id: string) {
-    const charRepository = getCustomRepository(CharRepository);
     try {
-      const user = await this.findOneOrFail(user_id);
-      const char = await charRepository.findOneOrFail(char_id);
-      return {
-        user: {
-          id: user.id,
-          is_active: user.is_active,
-          is_admin: user.is_admin,
-          name: user.name,
-          email: user.email,
-          char: char,
-        } as {
-          id: string;
-          is_active: boolean;
-          is_admin: boolean;
-          name: string;
-          email: string;
-          char: Char;
-        },
-      };
+      const user = await userWithCharsSerializer(user_id, char_id);
+      return user;
     } catch (error) {
       console.log("Repository error = ", error.message);
       throw new Error(` ${error.message}`);
+    }
+  }
+
+  async userExists({ email, name }: { email: string; name: string }) {
+    try {
+      const userAlreadyExits = await this.createQueryBuilder("user")
+        .where("user.name = :name", { name })
+        .orWhere("user.name = :email", { email })
+        .getOne();
+
+      if (userAlreadyExits)
+        return { message: "User Already Exists", status: true };
+
+      return { message: "User doesn't Exists", status: false };
+    } catch (error) {
+      console.log(`custom repository userExists = ${error.message}`);
+      throw new Error(`custom repository userExists = ${error.message}`);
     }
   }
 }

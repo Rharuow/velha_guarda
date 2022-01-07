@@ -12,19 +12,27 @@ import { Char } from "./Char";
 
 @Entity("users")
 export class User {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    unique: true,
+  })
   readonly id: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   name: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   token: string;
 
   @Column()

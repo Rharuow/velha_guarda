@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Char } from "./Char";
+import { Event } from "./Event";
 
 @Entity("users")
 export class User {
@@ -50,6 +51,10 @@ export class User {
   @JoinColumn({ name: "chars" })
   @OneToMany((type) => Char, (char) => char.user, { onDelete: "CASCADE" })
   chars: Char[];
+
+  @JoinColumn({ name: "users" })
+  @OneToMany((type) => Event, (event) => event.user, { onDelete: "CASCADE" })
+  events: Array<Event>;
 
   constructor() {
     if (!this.id) this.id = uuid();

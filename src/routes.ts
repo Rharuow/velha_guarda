@@ -10,6 +10,7 @@ import { GetUserController } from "./controllers/User/Get";
 import { GetCharController } from "./controllers/Char/Get";
 import { GetMembersUserController } from "./controllers/User/GetMembers";
 import { CreateEventController } from "./controllers/Event/Create";
+import { ListEventController } from "./controllers/Event/List";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -37,6 +38,7 @@ const getCharController = new GetCharController();
 //event controller
 
 const createEventController = new CreateEventController()
+const listEventController = new ListEventController()
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
@@ -59,6 +61,7 @@ router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
 
 // event resources
 router.post("/events", ensureAuthenticated, createEventController.handle)
+router.get("/events", ensureAuthenticated, listEventController.handle)
 
 
 export default router;

@@ -12,6 +12,7 @@ import { GetMembersUserController } from "./controllers/User/GetMembers";
 import { CreateEventController } from "./controllers/Event/Create";
 import { ListEventController } from "./controllers/Event/List";
 import { GetUserEventsController } from "./controllers/User/GetUserEvents";
+import { CreateMeetController } from "./controllers/Meet/Create";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -26,7 +27,7 @@ const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
-const getUserEventsController = new GetUserEventsController()
+const getUserEventsController = new GetUserEventsController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -39,8 +40,12 @@ const getCharController = new GetCharController();
 
 //event controller
 
-const createEventController = new CreateEventController()
-const listEventController = new ListEventController()
+const createEventController = new CreateEventController();
+const listEventController = new ListEventController();
+
+//meet controller
+
+const createMeetController = new CreateMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
@@ -51,7 +56,11 @@ router.delete(
   deleteUserController.handle
 );
 router.get("/users/:email", ensureAuthenticated, getUserController.handle);
-router.get("/users/:email/events", ensureAuthenticated, getUserEventsController.handle);
+router.get(
+  "/users/:email/events",
+  ensureAuthenticated,
+  getUserEventsController.handle
+);
 router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
 // session resources
@@ -63,8 +72,10 @@ router.get("/chars", ensureAuthenticated, listCharsController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
 
 // event resources
-router.post("/events", ensureAuthenticated, createEventController.handle)
-router.get("/events", ensureAuthenticated, listEventController.handle)
+router.post("/events", ensureAuthenticated, createEventController.handle);
+router.get("/events", ensureAuthenticated, listEventController.handle);
 
+// meet resources
+router.post("/meets", ensureAuthenticated, createMeetController.handle);
 
 export default router;

@@ -9,6 +9,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
           { name: "id", type: "uuid", isPrimary: true },
           { name: "start_at", type: "timestamp" },
           { name: "location", type: "varchar" },
+          { name: "amount_chars", type: "smallint" },
           { name: "hours", type: "varchar" },
           { name: "created_at", type: "timestamp", default: "now()" },
           { name: "updated_at", type: "timestamp", default: "now()" },

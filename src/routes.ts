@@ -11,6 +11,7 @@ import { GetCharController } from "./controllers/Char/Get";
 import { GetMembersUserController } from "./controllers/User/GetMembers";
 import { CreateEventController } from "./controllers/Event/Create";
 import { ListEventController } from "./controllers/Event/List";
+import { GetUserEventsController } from "./controllers/User/GetUserEvents";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -25,6 +26,7 @@ const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
+const getUserEventsController = new GetUserEventsController()
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -49,6 +51,7 @@ router.delete(
   deleteUserController.handle
 );
 router.get("/users/:email", ensureAuthenticated, getUserController.handle);
+router.get("/users/:email/events", ensureAuthenticated, getUserEventsController.handle);
 router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
 // session resources

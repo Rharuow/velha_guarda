@@ -26,7 +26,7 @@ export class Event {
   name: string;
 
   @Column()
-  coldown: number;
+  cooldown: number;
 
   @Column()
   lvl_min: number;

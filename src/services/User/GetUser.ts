@@ -3,13 +3,13 @@ import { UserRepository } from "../../repositories/UserRepository";
 import { userWithCharsSerializer } from "../../serializers/User";
 
 export class GetUserService {
-  async execute(id: string) {
+  async execute(email: string) {
     const userRepository = getCustomRepository(UserRepository);
 
     try {
-      const user = await userRepository.findOneOrFail(id, {
-        relations: ["chars"],
-      });
+      const user = await userRepository.findOneOrFail({ 
+        where: {email},
+         relations: ['chars']},);
 
       return {
         status: 200,

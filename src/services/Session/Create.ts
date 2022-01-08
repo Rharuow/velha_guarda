@@ -10,9 +10,10 @@ export class CreateSessionService {
     try {
       const user = await userRepository.findOne({
         where: { email },
+        relations: ['chars']
       });
 
-      if (!user.is_active) throw new Error("User not registred");
+      if (!user?.is_active) throw new Error("User not registred");
 
       const password_decoded = await bcrypt.compare(password, user.password);
       if (!password_decoded) throw new Error("Invalid password");

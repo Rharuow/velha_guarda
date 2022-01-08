@@ -1,22 +1,22 @@
 import { getCustomRepository } from "typeorm";
-import { Event } from "../../entities/Event";
+import { CreateEvent } from "../../types/Events";
 
 import { EventRepository } from "../../repositories/EventRepository";
 export class CreateEventService {
   async execute({
-    coldown,
+    cooldown,
     lvl_max,
     lvl_min,
     max_chars,
     min_chars,
     name,
     user_id,
-  }: Event) {
+  }: CreateEvent) {
     const eventRepository = getCustomRepository(EventRepository);
 
     try {
       const event = eventRepository.create({
-        coldown,
+        cooldown,
         lvl_max,
         lvl_min,
         max_chars,

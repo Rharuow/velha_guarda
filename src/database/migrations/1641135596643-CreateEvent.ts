@@ -8,7 +8,7 @@ export class CreateEvent1641135596643 implements MigrationInterface {
         columns: [
           { name: "id", type: "uuid", isPrimary: true },
           { name: "name", type: "varchar", isUnique: true },
-          { name: "coldown", type: "smallint" },
+          { name: "cooldown", type: "smallint" },
           { name: "lvl_min", type: "smallint", default: 0 },
           { name: "lvl_max", type: "smallint", default: 1000000 },
           { name: "max_chars", type: "smallint", default: 1000000 },

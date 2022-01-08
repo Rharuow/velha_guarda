@@ -5,10 +5,10 @@ export class GetUserController {
   async handle(req: Request, res: Response) {
     const getUserService = new GetUserService();
 
-    const { id } = req.params as { id: string };
+    const { email } = req.params as { email: string };
 
     try {
-      const { status, message, record } = await getUserService.execute(id);
+      const { status, message, record } = await getUserService.execute(email);
 
       return res.status(status).json({
         message,

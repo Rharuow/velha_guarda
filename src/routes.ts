@@ -9,6 +9,7 @@ import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { GetUserController } from "./controllers/User/Get";
 import { GetCharController } from "./controllers/Char/Get";
 import { GetMembersUserController } from "./controllers/User/GetMembers";
+import { CreateEventController } from "./controllers/Event/Create";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -33,8 +34,11 @@ const getUserByTokenController = new GetUserByTokenController();
 const listCharsController = new ListCharsController();
 const getCharController = new GetCharController();
 
-// user resourcers
+//event controller
 
+const createEventController = new CreateEventController()
+
+// user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
 router.post("/users", createUserController.handle);
 router.delete(
@@ -42,15 +46,19 @@ router.delete(
   ensureAuthenticated,
   deleteUserController.handle
 );
-router.get("/users/:id", ensureAuthenticated, getUserController.handle);
+router.get("/users/:email", ensureAuthenticated, getUserController.handle);
 router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
-// session resourcers
+// session resources
 router.post("/session", createSessionController.handle);
 router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 
-// char resourcers
+// char resources
 router.get("/chars", ensureAuthenticated, listCharsController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
+
+// event resources
+router.post("/events", ensureAuthenticated, createEventController.handle)
+
 
 export default router;

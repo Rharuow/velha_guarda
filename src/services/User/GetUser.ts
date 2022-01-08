@@ -3,14 +3,16 @@ import { UserRepository } from "../../repositories/UserRepository";
 import { userWithCharsSerializer } from "../../serializers/User";
 
 export class GetUserService {
-  async execute(email: string, withChars = false) {
+  async execute(email: string, withChars = false, withEvents = false) {
     const userRepository = getCustomRepository(UserRepository);
 
     const queryParams = {
       where: { email },
+      relations: [],
     };
 
-    if (withChars) queryParams["relations"] = ["chars"];
+    if (withChars) queryParams.relations.push("chars");
+    if (withEvents) queryParams.relations.push("events");
 
     try {
       const user = await userRepository.findOneOrFail(queryParams);
@@ -18,7 +20,7 @@ export class GetUserService {
       return {
         status: 200,
         message: "Get user with sucess",
-        record: userWithCharsSerializer(user, user.chars).user,
+        record: user,
       };
     } catch (error) {
       console.log("Error Get User Service = ", error.message);

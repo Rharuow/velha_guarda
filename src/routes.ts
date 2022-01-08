@@ -11,9 +11,9 @@ import { GetCharController } from "./controllers/Char/Get";
 import { GetMembersUserController } from "./controllers/User/GetMembers";
 import { CreateEventController } from "./controllers/Event/Create";
 import { ListEventController } from "./controllers/Event/List";
-import { GetUserEventsController } from "./controllers/User/GetUserEvents";
 import { CreateMeetController } from "./controllers/Meet/Create";
 import { ListMeetController } from "./controllers/Meet/List";
+import { GetEventController } from "./controllers/Event/Get";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -28,7 +28,6 @@ const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
-const getUserEventsController = new GetUserEventsController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -43,6 +42,7 @@ const getCharController = new GetCharController();
 
 const createEventController = new CreateEventController();
 const listEventController = new ListEventController();
+const getEventController = new GetEventController();
 
 //meet controller
 
@@ -66,7 +66,7 @@ router.get(
 router.get(
   "/users/:email/events",
   ensureAuthenticated,
-  getUserEventsController.handle
+  getUserController.handle
 );
 router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
@@ -77,10 +77,21 @@ router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 // char resources
 router.get("/chars", ensureAuthenticated, listCharsController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
+router.get(
+  "/chars/:id/meetings",
+  ensureAuthenticated,
+  getCharController.handle
+);
 
 // event resources
 router.post("/events", ensureAuthenticated, createEventController.handle);
 router.get("/events", ensureAuthenticated, listEventController.handle);
+router.get("/events/:id", ensureAuthenticated, getEventController.handle);
+router.get(
+  "/events/:id/meetings",
+  ensureAuthenticated,
+  getEventController.handle
+);
 
 // meet resources
 router.get("/meetings", ensureAuthenticated, listMeetController.handle);

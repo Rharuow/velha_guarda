@@ -61,9 +61,9 @@ export class CreateUserService {
       await userRepository.save(user);
       console.log("User created with success");
 
-      chars.forEach(async (char) => {
+      for (const char of chars)
         await createCharService.execute({ ...char, user_id: user.id });
-      });
+
       return {
         status: 200,
         message: "User created with success",

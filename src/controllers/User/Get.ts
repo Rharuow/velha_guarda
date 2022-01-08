@@ -10,7 +10,8 @@ export class GetUserController {
     try {
       const { status, message, record } = await getUserService.execute(
         email,
-        req.originalUrl.includes("chars")
+        req.originalUrl.includes("chars"),
+        req.originalUrl.includes("events")
       );
 
       return res.status(status).json({

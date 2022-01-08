@@ -4,12 +4,14 @@ import {
   Entity,
   JoinColumn,
   JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Event } from "./Event";
 import { Meet } from "./Meet";
 import { User } from "./User";
 
@@ -82,6 +84,9 @@ export class Char {
 
   @OneToMany((type) => Meet, (meet) => meet.char, { onDelete: "CASCADE" })
   meetings: Array<Meet>;
+
+  @ManyToMany((type) => Event, (event) => event.chars, { onDelete: "CASCADE" })
+  events: Array<Event>;
 
   constructor() {
     if (!this.id) this.id = uuid();

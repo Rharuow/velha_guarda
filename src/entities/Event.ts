@@ -3,14 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { Char } from "./Char";
 import { Meet } from "./Meet";
 import { User } from "./User";
 
@@ -56,9 +54,6 @@ export class Event {
   @JoinColumn({ name: "user_id" })
   @ManyToOne((type) => User, (user) => user.events, { onDelete: "CASCADE" })
   user: User;
-
-  @ManyToMany((type) => Char, (char) => char.events, { onDelete: "CASCADE" })
-  chars: Array<Char>;
 
   constructor() {
     if (!this.id) this.id = uuid();

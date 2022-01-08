@@ -1,14 +1,20 @@
 import { getCustomRepository } from "typeorm";
+import { CharRepository } from "../../repositories/CharRepository";
 import { MeetRepository } from "../../repositories/MeetRepository";
 import { CreateMeet } from "../../types/Meet";
 
 export class CreateMeetService {
   async execute({ char_id, event_id, hours, location, start_at }: CreateMeet) {
     const meetRepository = getCustomRepository(MeetRepository);
+    const charRepository = getCustomRepository(CharRepository);
 
     try {
+      const char = await charRepository.findOneOrFail({
+        where: { id: char_id },
+      });
+
       const meet = meetRepository.create({
-        char_id,
+        chars: [char],
         event_id,
         hours,
         location: location ? location : "Sem local",

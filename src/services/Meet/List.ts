@@ -7,7 +7,7 @@ export class ListMeetService {
 
     try {
       const meetings = await meetRepository.find({
-        relations: ["char", "event"],
+        relations: ["chars", "event"],
       });
 
       return {

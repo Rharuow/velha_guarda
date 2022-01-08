@@ -12,10 +12,14 @@ export class GetEventService {
     try {
       const event = await eventRepository.findOneOrFail(id, { relations });
 
+      const eventWithMeetings = await eventRepository.findOneWithMeetings(
+        event.id
+      );
+
       return {
         status: 200,
         message: "Event Get with success",
-        record: event,
+        record: withMeetings ? eventWithMeetings : event,
       };
     } catch (error) {
       console.log(` = ${error.message}`);

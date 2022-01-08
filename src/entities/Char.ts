@@ -6,7 +6,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -79,14 +78,12 @@ export class Char {
   updated_at: Date;
 
   @JoinColumn({ name: "user_id" })
-  @ManyToOne((type) => User, (user) => user.chars, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.chars, { onDelete: "CASCADE" })
   user: User;
 
-  @OneToMany((type) => Meet, (meet) => meet.char, { onDelete: "CASCADE" })
+  @ManyToMany(() => Meet, (meet) => meet.chars, { onDelete: "CASCADE" })
+  @JoinTable()
   meetings: Array<Meet>;
-
-  @ManyToMany((type) => Event, (event) => event.chars, { onDelete: "CASCADE" })
-  events: Array<Event>;
 
   constructor() {
     if (!this.id) this.id = uuid();

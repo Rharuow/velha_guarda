@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -29,9 +30,6 @@ export class Meet {
   hours: string;
 
   @Column()
-  char_id: string;
-
-  @Column()
   event_id: string;
 
   @Column()
@@ -43,9 +41,8 @@ export class Meet {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @JoinColumn({ name: "char_id" })
-  @ManyToOne((type) => Char, (char) => char.meetings, { onDelete: "CASCADE" })
-  char: Char;
+  @ManyToMany(() => Char, (char) => char.meetings, { onDelete: "CASCADE" })
+  chars: Array<Char>;
 
   @JoinColumn({ name: "event_id" })
   @ManyToOne((type) => Event, (event) => event.meetings, {

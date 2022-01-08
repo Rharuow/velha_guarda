@@ -13,18 +13,9 @@ export class CreateMeet1641139143887 implements MigrationInterface {
           { name: "hours", type: "varchar" },
           { name: "created_at", type: "timestamp", default: "now()" },
           { name: "updated_at", type: "timestamp", default: "now()" },
-          { name: "char_id", type: "uuid" },
           { name: "event_id", type: "uuid" },
         ],
         foreignKeys: [
-          {
-            name: "FKCharsvEvents",
-            columnNames: ["char_id"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "chars",
-            onDelete: "SET NULL",
-            onUpdate: "SET NULL",
-          },
           {
             name: "FKEventsChars",
             columnNames: ["event_id"],

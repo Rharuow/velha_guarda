@@ -8,7 +8,10 @@ export class GetUserController {
     const { email } = req.params as { email: string };
 
     try {
-      const { status, message, record } = await getUserService.execute(email);
+      const { status, message, record } = await getUserService.execute(
+        email,
+        req.originalUrl.includes("chars")
+      );
 
       return res.status(status).json({
         message,

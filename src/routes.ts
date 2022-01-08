@@ -59,6 +59,11 @@ router.delete(
 );
 router.get("/users/:email", ensureAuthenticated, getUserController.handle);
 router.get(
+  "/users/:email/chars",
+  ensureAuthenticated,
+  getUserController.handle
+);
+router.get(
   "/users/:email/events",
   ensureAuthenticated,
   getUserEventsController.handle
@@ -80,4 +85,5 @@ router.get("/events", ensureAuthenticated, listEventController.handle);
 // meet resources
 router.get("/meetings", ensureAuthenticated, listMeetController.handle);
 router.post("/meetings", ensureAuthenticated, createMeetController.handle);
+
 export default router;

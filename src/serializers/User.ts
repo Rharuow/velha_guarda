@@ -92,9 +92,26 @@ const usersWithCharsSerializer = (users: Array<User>) => {
   }
 };
 
+const usersWithEventsSerializer = (user: User) => {
+  try {
+    return {
+      id: user.id,
+      is_active: user.is_active,
+      is_admin: user.is_admin,
+      name: user.name,
+      email: user.email,
+      events: user.events,
+    }
+  } catch (error) {
+    console.log("userWithEventsSerializer error = ", error.message);
+    throw new Error(` ${error.message}`);
+  }
+};
+
 export {
   userWithCharSerializer,
   userSerializer,
   userWithCharsSerializer,
   usersWithCharsSerializer,
+  usersWithEventsSerializer
 };

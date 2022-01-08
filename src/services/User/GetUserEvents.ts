@@ -1,5 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import { UserRepository } from '../../repositories/UserRepository';
+import { usersWithEventsSerializer } from '../../serializers/User';
  
 export class GetUserEventsService {
     async execute(email:string) {
@@ -12,7 +13,7 @@ export class GetUserEventsService {
             return {
                 status: 200,
                 message: 'Get user events with sucess',
-                record: user,
+                record: usersWithEventsSerializer(user),
             };
 
         } catch(error) {

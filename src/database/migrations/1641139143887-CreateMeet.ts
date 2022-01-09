@@ -8,9 +8,9 @@ export class CreateMeet1641139143887 implements MigrationInterface {
         columns: [
           { name: "id", type: "uuid", isPrimary: true },
           { name: "start_at", type: "timestamp" },
+          { name: "finished_at", type: "timestamp", isNullable: true },
           { name: "location", type: "varchar" },
-          { name: "amount_chars", type: "smallint" },
-          { name: "hours", type: "varchar" },
+          { name: "avalible", type: "boolean", default: true },
           { name: "created_at", type: "timestamp", default: "now()" },
           { name: "updated_at", type: "timestamp", default: "now()" },
           { name: "event_id", type: "uuid" },
@@ -21,7 +21,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
             columnNames: ["event_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "events",
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
         ],
@@ -30,6 +30,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable("chars_meetings_meetings");
     await queryRunner.dropTable("meetings");
   }
 }

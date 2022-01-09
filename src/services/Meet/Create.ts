@@ -4,7 +4,7 @@ import { MeetRepository } from "../../repositories/MeetRepository";
 import { CreateMeet } from "../../types/Meet";
 
 export class CreateMeetService {
-  async execute({ char_id, event_id, hours, location, start_at }: CreateMeet) {
+  async execute({ char_id, event_id, location, start_at }: CreateMeet) {
     const meetRepository = getCustomRepository(MeetRepository);
     const charRepository = getCustomRepository(CharRepository);
 
@@ -16,9 +16,7 @@ export class CreateMeetService {
       const meet = meetRepository.create({
         chars: [char],
         event_id,
-        hours,
         location: location ? location : "Sem local",
-        amount_chars: 1,
         start_at,
       });
 

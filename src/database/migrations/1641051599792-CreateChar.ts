@@ -26,7 +26,7 @@ export class CreateChar1641051599792 implements MigrationInterface {
             columnNames: ["user_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "users",
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
         ],

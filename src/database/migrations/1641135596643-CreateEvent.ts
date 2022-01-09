@@ -23,7 +23,7 @@ export class CreateEvent1641135596643 implements MigrationInterface {
             columnNames: ["user_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "users",
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "SET NULL",
           },
         ],

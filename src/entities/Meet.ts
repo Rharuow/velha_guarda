@@ -23,17 +23,17 @@ export class Meet {
   @Column()
   start_at: Date;
 
+  @Column({ nullable: true })
+  finished_at: Date;
+
   @Column()
   location: string;
 
-  @Column()
-  hours: string;
+  @Column({ default: true })
+  avalible: boolean;
 
   @Column()
   event_id: string;
-
-  @Column()
-  amount_chars: number;
 
   @CreateDateColumn()
   created_at: Date;

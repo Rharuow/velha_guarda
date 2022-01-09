@@ -49,11 +49,11 @@ export class User {
   updated_at: Date;
 
   @JoinColumn({ name: "chars" })
-  @OneToMany((type) => Char, (char) => char.user, { onDelete: "CASCADE" })
+  @OneToMany((type) => Char, (char) => char.user, { cascade: true })
   chars: Char[];
 
   @JoinColumn({ name: "users" })
-  @OneToMany((type) => Event, (event) => event.user, { onDelete: "CASCADE" })
+  @OneToMany((type) => Event, (event) => event.user, { cascade: true })
   events: Array<Event>;
 
   constructor() {

@@ -17,6 +17,8 @@ import { GetEventController } from "./controllers/Event/Get";
 import { GetMeetController } from "./controllers/Meet/Get";
 import { isAvalibleDate } from "./middlewares/isAvalibleDate";
 import { FinishedMeetController } from "./controllers/Meet/Finished";
+import { userCharAlreadyRegistred } from "./middlewares/userCharAlreadyRegistred";
+import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -53,6 +55,7 @@ const createMeetController = new CreateMeetController();
 const listMeetController = new ListMeetController();
 const getMeetController = new GetMeetController();
 const finishedMeetController = new FinishedMeetController();
+const insertCharMeetController = new InsertCharMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
@@ -118,5 +121,11 @@ router.post(
   createMeetController.handle
 );
 router.put("/meetings", ensureAuthenticated, finishedMeetController.handle);
+router.put(
+  "/meetings/:id",
+  ensureAuthenticated,
+  userCharAlreadyRegistred,
+  insertCharMeetController.handle
+);
 
 export default router;

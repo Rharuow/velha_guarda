@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import _ from "lodash";
 import { ListCharService } from "../services/Char/List";
 
-export async function charAlareadyExists(
+export async function charAlreadyExists(
   req: Request,
   res: Response,
   next: NextFunction

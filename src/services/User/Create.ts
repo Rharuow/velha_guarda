@@ -39,6 +39,10 @@ export class CreateUserService {
     );
 
     try {
+      const validadeChars = chars.filter((char) => char.name);
+
+      if (validadeChars.length >= 2) throw new Error("Duplicate Chars");
+
       const hasUser = await userRepository.userExists({ name, email });
 
       let hasChar = { message: "", status: false };

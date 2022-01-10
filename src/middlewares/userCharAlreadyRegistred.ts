@@ -25,13 +25,15 @@ export async function userCharAlreadyRegistred(
     process.env.SECRET
   ) as IUserSession;
 
-  const currentUser = await userRepository.findOne(user.id);
-  const meet = await meetRepository.findOne(meet_id);
+  const currentUser = await userRepository.findOne(user.id, {
+    relations: ["chars"],
+  });
+  const meet = await meetRepository.findOne(meet_id, { relations: ["chars"] });
 
   const charMeetRegistred = meet.chars.find((char) => char.id === char_id);
   const charCurrentUser = currentUser.chars.find((char) => char.id === char_id);
 
-  if (charMeetRegistred === charCurrentUser)
+  if (charMeetRegistred.id === charCurrentUser.id)
     return res.send("user's char already registred");
 
   return next();

@@ -30,7 +30,7 @@ export class CreateMeet1641139143887 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("chars_meetings_meetings");
+    await queryRunner.dropTable("chars_meetings_meetings", true);
     await queryRunner.dropTable("meetings");
   }
 }

@@ -1,4 +1,5 @@
 import { hash } from "bcryptjs";
+import _ from "lodash";
 import { getCustomRepository } from "typeorm";
 import { CharRepository } from "../../repositories/CharRepository";
 import { UserRepository } from "../../repositories/UserRepository";
@@ -39,9 +40,13 @@ export class CreateUserService {
     );
 
     try {
-      const validadeChars = chars.filter((char) => char.name);
+      const validadeChars = chars.filter(
+        (char, index, self) =>
+          index === self.findIndex((c) => c.name === char.name)
+      );
 
-      if (validadeChars.length >= 2) throw new Error("Duplicate Chars");
+      if (validadeChars.length < chars.length)
+        throw new Error("Duplicate Chars");
 
       const hasUser = await userRepository.userExists({ name, email });
 

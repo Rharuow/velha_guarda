@@ -5,6 +5,7 @@ import { CharRepository } from "../../repositories/CharRepository";
 import { UserRepository } from "../../repositories/UserRepository";
 import { userWithCharsSerializer } from "../../serializers/User";
 import { CreateUser } from "../../types/User";
+import { sendConfirmationToken } from "../../utils/sendgrid";
 import { CreateCharService } from "../Char/Create";
 
 export class CreateUserService {
@@ -72,6 +73,12 @@ export class CreateUserService {
 
       for (const char of chars)
         await createCharService.execute({ ...char, user_id: user.id });
+
+      await sendConfirmationToken({
+        email: user.email,
+        name: user.name,
+        token,
+      });
 
       return {
         status: 200,

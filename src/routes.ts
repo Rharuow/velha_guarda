@@ -19,6 +19,8 @@ import { isAvalibleDate } from "./middlewares/isAvalibleDate";
 import { FinishedMeetController } from "./controllers/Meet/Finished";
 import { userCharAlreadyRegistred } from "./middlewares/userCharAlreadyRegistred";
 import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
+import { ConfirmationUserController } from "./controllers/User/Confirmation";
+import { tokenVerification } from "./middlewares/tokenVerification";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -29,6 +31,7 @@ router.get("/", (req: Request, res: Response) =>
 
 // user controllers
 const createUserController = new CreateUserController();
+const confirmationUserController = new ConfirmationUserController();
 const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
@@ -59,6 +62,11 @@ const insertCharMeetController = new InsertCharMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
+router.get(
+  "/users/confirmation/:email/:token",
+  tokenVerification,
+  confirmationUserController.handle
+);
 router.post("/users", createUserController.handle);
 router.delete(
   "/users/:email",

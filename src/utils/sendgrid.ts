@@ -19,7 +19,7 @@ const sendConfirmationToken = async (data: {
     text: `Link para confirmação`,
     html: `<h1>Olá ${data.name}</h1>
       <p>Clique no link abaixo para o próximo passo do seu cadastro:</p>
-      <a target="_blank" href="${process.env.WEB_URL}/signup/confirmation?email=${data.email}&token=${data.token}"> Seguir com meu cadastro </a>`,
+      <a target="_blank" href="${process.env.WEB_URL}/session/confirmation?email=${data.email}&token=${data.token}"> Seguir com meu cadastro </a>`,
   };
   try {
     await sgMail.send(msg);

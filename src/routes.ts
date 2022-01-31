@@ -21,6 +21,7 @@ import { userCharAlreadyRegistred } from "./middlewares/userCharAlreadyRegistred
 import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
 import { ConfirmationUserController } from "./controllers/User/Confirmation";
 import { tokenVerification } from "./middlewares/tokenVerification";
+import { userIsActivated } from "./middlewares/userIsActivated";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -87,7 +88,7 @@ router.get(
 router.get("/members", ensureAuthenticated, getMembersUserController.handle);
 
 // session resources
-router.post("/session", createSessionController.handle);
+router.post("/session", userIsActivated, createSessionController.handle);
 router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 
 // char resources

@@ -10,7 +10,7 @@ export class CreateSessionService {
     try {
       const user = await userRepository.findOne({
         where: { email },
-        relations: ['chars']
+        relations: ["chars"],
       });
 
       if (!user?.is_active) throw new Error("User not registred");

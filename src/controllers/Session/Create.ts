@@ -24,6 +24,8 @@ export class CreateSessionController {
         process.env.SECRET
       );
 
+      console.log("Session done");
+
       return res.json({ token });
     } catch (error) {
       console.log("error session request = ", error.message);

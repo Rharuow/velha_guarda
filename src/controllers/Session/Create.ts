@@ -21,7 +21,8 @@ export class CreateSessionController {
             is_admin: user.is_admin,
           },
         },
-        process.env.SECRET
+        process.env.SECRET,
+        { algorithm: "HS512" }
       );
 
       console.log("Session done");

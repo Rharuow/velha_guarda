@@ -25,6 +25,7 @@ const sendConfirmationToken = async (data: {
     await sgMail.send(msg);
     console.log("Email sent");
   } catch (error) {
+    console.log("Email doesn't sent = ", error.message);
     const userRepository = getCustomRepository(UserRepository);
     await userRepository.delete({ email: data.email });
     throw new Error(`Sendgrid: ${error.message}`);

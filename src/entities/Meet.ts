@@ -33,6 +33,9 @@ export class Meet {
   avalible: boolean;
 
   @Column()
+  char_id: string;
+
+  @Column()
   event_id: string;
 
   @CreateDateColumn()

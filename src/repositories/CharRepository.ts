@@ -1,6 +1,7 @@
 import { EntityRepository, getCustomRepository, Repository } from "typeorm";
 import { Char } from "../entities/Char";
 import { Meet } from "../entities/Meet";
+import { EventRepository } from "./EventRepository";
 import { MeetRepository } from "./MeetRepository";
 
 @EntityRepository(Char)
@@ -45,6 +46,30 @@ export class CharRepository extends Repository<Char> {
       throw new Error(
         `custom repository char findOneWithMeetings = ${error.message}`
       );
+    }
+  }
+
+  async findEvents(char_id: string) {
+    const meetRespository = getCustomRepository(MeetRepository);
+
+    const eventRepository = getCustomRepository(EventRepository);
+
+    try {
+      const charMeeting = await meetRespository.find({ where: { char_id } });
+
+      const charEvents = (await eventRepository.find()).map((event) =>
+        charMeeting.find((meet) => meet.event_id !== event.id)
+      );
+
+      const char = await this.findOneOrFail(char_id);
+
+      return {
+        ...char,
+        events: charEvents,
+      };
+    } catch (error) {
+      console.log(`custom repository event findEvents = ${error.message}`);
+      throw new Error(`custom repository event findEvents = ${error.message}`);
     }
   }
 }

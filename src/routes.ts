@@ -22,7 +22,6 @@ import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
 import { ConfirmationUserController } from "./controllers/User/Confirmation";
 import { tokenVerification } from "./middlewares/tokenVerification";
 import { userIsActivated } from "./middlewares/userIsActivated";
-import { EventsCharController } from "./controllers/Char/Events";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -47,7 +46,6 @@ const getUserByTokenController = new GetUserByTokenController();
 
 const listCharsController = new ListCharsController();
 const getCharController = new GetCharController();
-const getCharEventsController = new EventsCharController();
 
 //event controller
 
@@ -101,11 +99,6 @@ router.get(
   "/chars/:id/meetings",
   ensureAuthenticated,
   getCharController.handle
-);
-router.get(
-  "/chars/:id/events",
-  ensureAuthenticated,
-  getCharEventsController.handle
 );
 
 // event resources

@@ -10,7 +10,7 @@ export async function isAvalibleDate(
   const startAt = new Date(start_at);
   const today = new Date();
 
-  if (startAt > today) return next();
+  if (startAt >= today) return next();
 
   return res.status(401).json({
     message: "Not avalible date",

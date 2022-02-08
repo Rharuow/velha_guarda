@@ -15,6 +15,7 @@ export class CreateMeetService {
 
       const meet = meetRepository.create({
         chars: [char],
+        char_id,
         event_id,
         location: location ? location : "Sem local",
         start_at,

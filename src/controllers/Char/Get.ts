@@ -6,13 +6,13 @@ export class GetCharController {
   async handle(req: Request, res: Response) {
     const getCharService = new GetCharService();
 
-    const { char_id } = req.params as { char_id: string };
+    const { id } = req.params as { id: string };
 
     const withMeetings = req.originalUrl.includes("meetings");
 
     try {
       const { message, record, status } = await getCharService.execute(
-        char_id,
+        id,
         withMeetings
       );
 

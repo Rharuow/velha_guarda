@@ -9,11 +9,11 @@ export class InsertCharMeetController {
       char_id: string;
     };
 
-    const { meet_id } = req.params as { meet_id: string };
+    const { id } = req.params as { id: string };
 
     try {
       const { message, record, status } = await insertCharMeetService.execute(
-        meet_id,
+        id,
         char_id
       );
 

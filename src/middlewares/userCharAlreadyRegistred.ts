@@ -16,7 +16,7 @@ export async function userCharAlreadyRegistred(
 
   const { char_id } = req.body as { char_id: string };
 
-  const { meet_id } = req.params as { meet_id: string };
+  const { id } = req.params as { id: string };
 
   const token: string = req.headers.authorization;
 
@@ -28,12 +28,9 @@ export async function userCharAlreadyRegistred(
   const currentUser = await userRepository.findOne(user.id, {
     relations: ["chars"],
   });
-  const meet = await meetRepository.findOne(meet_id, { relations: ["chars"] });
+  const meet = await meetRepository.findOne(id, { relations: ["chars"] });
 
-  const charMeetRegistred = meet.chars.find((char) => char.id === char_id);
-  const charCurrentUser = currentUser.chars.find((char) => char.id === char_id);
-
-  if (charMeetRegistred.id === charCurrentUser.id)
+  if (meet.chars.some((char) => char.id === char_id))
     return res.send("user's char already registred");
 
   return next();

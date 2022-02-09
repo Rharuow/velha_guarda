@@ -93,7 +93,7 @@ router.post("/session", userIsActivated, createSessionController.handle);
 router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 
 // char resources
-router.get("/chars", listCharsController.handle);
+router.get("/chars", ensureAuthenticated, listCharsController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
 router.get(
   "/chars/:id/meetings",

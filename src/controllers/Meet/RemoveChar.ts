@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { InsertCharMeetService } from "../../services/Meet/InsertChar";
+import { RemoveCharMeetService } from "../../services/Meet/RemoveChar";
 
-export class InsertCharMeetController {
+export class RemoveCharMeetController {
   async handle(req: Request, res: Response) {
-    const insertCharMeetService = new InsertCharMeetService();
+    const removeCharMeetService = new RemoveCharMeetService();
 
     const { id, char_id } = req.params as { id: string; char_id: string };
 
     try {
-      const { message, record, status } = await insertCharMeetService.execute(
+      const { message, record, status } = await removeCharMeetService.execute(
         id,
         char_id
       );
@@ -19,7 +19,7 @@ export class InsertCharMeetController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: `${error.message}`,
+        message: ` > Remove Char Meet Controller > ${error.message}`,
       });
     }
   }

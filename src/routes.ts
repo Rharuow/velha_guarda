@@ -22,6 +22,7 @@ import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
 import { ConfirmationUserController } from "./controllers/User/Confirmation";
 import { tokenVerification } from "./middlewares/tokenVerification";
 import { userIsActivated } from "./middlewares/userIsActivated";
+import { RemoveCharMeetController } from "./controllers/Meet/RemoveChar";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -60,6 +61,7 @@ const listMeetController = new ListMeetController();
 const getMeetController = new GetMeetController();
 const finishedMeetController = new FinishedMeetController();
 const insertCharMeetController = new InsertCharMeetController();
+const removeCharMeetController = new RemoveCharMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
@@ -132,10 +134,16 @@ router.post(
 );
 router.put("/meetings", ensureAuthenticated, finishedMeetController.handle);
 router.put(
-  "/meetings/:id",
+  "/meetings/:id/chars/:char_id",
   ensureAuthenticated,
   userCharAlreadyRegistred,
   insertCharMeetController.handle
+);
+router.delete(
+  "/meetings/:id/chars/:char_id",
+  ensureAuthenticated,
+  userCharAlreadyRegistred,
+  removeCharMeetController.handle
 );
 
 export default router;

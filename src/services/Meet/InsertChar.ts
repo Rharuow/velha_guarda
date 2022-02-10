@@ -15,11 +15,7 @@ export class InsertCharMeetService {
 
       meet.chars.push(char);
 
-      const newMeet = await meetRepository.update(meet_id, {
-        chars: meet.chars,
-      });
-
-      console.log(newMeet);
+      await meetRepository.save(meet);
 
       return {
         status: 200,

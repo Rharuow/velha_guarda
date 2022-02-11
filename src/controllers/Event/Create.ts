@@ -22,11 +22,11 @@ export class CreateEventController {
       const { message, record, status } = await createEventService.execute({
         cooldown,
         lvl_max: lvl_max ? lvl_max : 100000,
-        lvl_min: lvl_min ? lvl_max : 1,
+        lvl_min: lvl_min ? lvl_min : 1,
         max_chars: max_chars ? max_chars : 10000,
-        min_chars: min_chars? min_chars : 1,
+        min_chars: min_chars ? min_chars : 1,
         name,
-        user_id: user.id
+        user_id: user.id,
       });
 
       return res.status(status).json({

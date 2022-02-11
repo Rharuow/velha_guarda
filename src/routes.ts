@@ -24,6 +24,7 @@ import { tokenVerification } from "./middlewares/tokenVerification";
 import { userIsActivated } from "./middlewares/userIsActivated";
 import { RemoveCharMeetController } from "./controllers/Meet/RemoveChar";
 import { DeleteMeetController } from "./controllers/Meet/Delete";
+import { UpdateCharController } from "./controllers/Char/Update";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -48,6 +49,7 @@ const getUserByTokenController = new GetUserByTokenController();
 
 const listCharsController = new ListCharsController();
 const getCharController = new GetCharController();
+const updateCharController = new UpdateCharController();
 
 //event controller
 
@@ -84,6 +86,7 @@ router.get(
   ensureAuthenticated,
   getUserController.handle
 );
+
 router.get(
   "/users/:email/events",
   ensureAuthenticated,
@@ -99,6 +102,7 @@ router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 // char resources
 router.get("/chars", listCharsController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
+router.put("/chars/:id", ensureAuthenticated, updateCharController.handle);
 router.get(
   "/chars/:id/meetings",
   ensureAuthenticated,

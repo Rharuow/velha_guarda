@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsnd --respawn src/server.ts",
+    "tsc": "tsc",
+    "start": "node dist/src/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js --config ormconfig.ts"
   },
   "author": "",

@@ -13,8 +13,16 @@ export class CreateUser1641049213744 implements MigrationInterface {
           { name: "is_active", type: "boolean", default: false },
           { name: "is_admin", type: "boolean", default: false },
           { name: "password", type: "varchar" },
-          { name: "created_at", type: "timestamp", default: "now()" },
-          { name: "updated_at", type: "timestamp", default: "now()" },
+          {
+            name: "created_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
         ],
       })
     );

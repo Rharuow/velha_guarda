@@ -20,10 +20,10 @@ export class Meet {
   })
   readonly id: string;
 
-  @Column()
+  @Column({ type: "timestamp without time zone" })
   start_at: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "timestamp without time zone" })
   finished_at: Date;
 
   @Column()
@@ -38,10 +38,10 @@ export class Meet {
   @Column()
   event_id: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "timestamptz" })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "timestamptz" })
   updated_at: Date;
 
   @ManyToMany(() => Char, (char) => char.meetings, { onDelete: "CASCADE" })

@@ -7,12 +7,24 @@ export class CreateMeet1641139143887 implements MigrationInterface {
         name: "meetings",
         columns: [
           { name: "id", type: "uuid", isPrimary: true },
-          { name: "start_at", type: "timestamp" },
-          { name: "finished_at", type: "timestamp", isNullable: true },
+          { name: "start_at", type: "timestamp without time zone" },
+          {
+            name: "finished_at",
+            type: "timestamp without time zone",
+            isNullable: true,
+          },
           { name: "location", type: "varchar" },
           { name: "avalible", type: "boolean", default: true },
-          { name: "created_at", type: "timestamp", default: "now()" },
-          { name: "updated_at", type: "timestamp", default: "now()" },
+          {
+            name: "created_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
           { name: "event_id", type: "uuid" },
         ],
         foreignKeys: [

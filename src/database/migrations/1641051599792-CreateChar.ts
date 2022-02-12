@@ -17,8 +17,16 @@ export class CreateChar1641051599792 implements MigrationInterface {
           { name: "premium", type: "boolean" },
           { name: "online", type: "boolean" },
           { name: "user_id", type: "uuid" },
-          { name: "created_at", type: "timestamp", default: "now()" },
-          { name: "updated_at", type: "timestamp", default: "now()" },
+          {
+            name: "created_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
         ],
         foreignKeys: [
           {

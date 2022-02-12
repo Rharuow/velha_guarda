@@ -13,8 +13,16 @@ export class CreateEvent1641135596643 implements MigrationInterface {
           { name: "lvl_max", type: "smallint", default: 1000000 },
           { name: "max_chars", type: "smallint", default: 1000000 },
           { name: "min_chars", type: "smallint", default: 0 },
-          { name: "created_at", type: "timestamp", default: "now()" },
-          { name: "updated_at", type: "timestamp", default: "now()" },
+          {
+            name: "created_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp without time zone",
+            default: "now()",
+          },
           { name: "user_id", type: "uuid" },
         ],
         foreignKeys: [

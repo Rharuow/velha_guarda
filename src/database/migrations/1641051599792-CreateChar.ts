@@ -38,7 +38,8 @@ export class CreateChar1641051599792 implements MigrationInterface {
             onUpdate: "SET NULL",
           },
         ],
-      })
+      }),
+      true
     );
   }
 

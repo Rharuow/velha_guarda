@@ -37,7 +37,8 @@ export class CreateMeet1641139143887 implements MigrationInterface {
             onUpdate: "SET NULL",
           },
         ],
-      })
+      }),
+      true
     );
   }
 

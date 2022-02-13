@@ -35,7 +35,8 @@ export class CreateEvent1641135596643 implements MigrationInterface {
             onUpdate: "SET NULL",
           },
         ],
-      })
+      }),
+      true
     );
   }
 

@@ -9,7 +9,7 @@ export class FinishedMeetService {
       const today = new Date();
 
       await meetRepository.update(id, {
-        avalible: false,
+        available: false,
         finished_at: today,
       });
 

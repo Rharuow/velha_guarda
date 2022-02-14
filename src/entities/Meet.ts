@@ -30,7 +30,7 @@ export class Meet {
   location: string;
 
   @Column({ default: true })
-  avalible: boolean;
+  available: boolean;
 
   @Column()
   char_id: string;

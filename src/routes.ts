@@ -26,6 +26,7 @@ import { RemoveCharMeetController } from "./controllers/Meet/RemoveChar";
 import { DeleteMeetController } from "./controllers/Meet/Delete";
 import { UpdateCharController } from "./controllers/Char/Update";
 import { DeleteEventController } from "./controllers/Event/Delete";
+import { AvailableMeetController } from "./controllers/Meet/Available";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -68,6 +69,7 @@ const deleteMeetController = new DeleteMeetController();
 const finishedMeetController = new FinishedMeetController();
 const insertCharMeetController = new InsertCharMeetController();
 const removeCharMeetController = new RemoveCharMeetController();
+const availableMeetController = new AvailableMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
@@ -125,6 +127,11 @@ router.get(
 // meet resources
 router.get("/meetings", ensureAuthenticated, listMeetController.handle);
 router.get("/meetings/:id", ensureAuthenticated, getMeetController.handle);
+router.put(
+  "/meetings/:id",
+  ensureAuthenticated,
+  availableMeetController.handle
+);
 router.delete(
   "/meetings/:id",
   ensureAuthenticated,

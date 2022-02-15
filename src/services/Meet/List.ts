@@ -12,10 +12,18 @@ export class ListMeetService {
         skip: 5 * (page + 1) - 5,
       });
 
+      const meetingsAndCount = await meetRepository.findAndCount({
+        relations: ["chars", "event"],
+        take: 5,
+        skip: 5 * (page + 1) - 5,
+      });
+
+      console.log("meetingsAndCount = ", meetingsAndCount);
+
       return {
         status: 200,
         message: "Meet List with success",
-        record: meetings,
+        record: meetingsAndCount,
       };
     } catch (error) {
       console.log(` = ${error.message}`);

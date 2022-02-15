@@ -7,8 +7,6 @@ export class ListMeetController {
 
     const { page } = req.query as { page: string | undefined };
 
-    console.log(page);
-
     try {
       const { message, record, status } = await listMeetService.execute(
         page ? parseInt(page) : 1

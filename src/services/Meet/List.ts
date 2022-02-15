@@ -9,11 +9,8 @@ export class ListMeetService {
       const meetings = await meetRepository.find({
         relations: ["chars", "event"],
         take: 5,
-        skip: page,
+        skip: 5 * (page + 1) - 5,
       });
-
-      console.log(meetings.length);
-      console.log(page);
 
       return {
         status: 200,

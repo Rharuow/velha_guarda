@@ -1,4 +1,4 @@
-import { getCustomRepository, Like, Raw } from "typeorm";
+import { getCustomRepository, ILike, Raw } from "typeorm";
 import { MeetRepository } from "../../repositories/MeetRepository";
 import { FiltersType, getMeetFilters } from "../../utils/filters";
 

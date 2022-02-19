@@ -27,6 +27,7 @@ import { DeleteMeetController } from "./controllers/Meet/Delete";
 import { UpdateCharController } from "./controllers/Char/Update";
 import { DeleteEventController } from "./controllers/Event/Delete";
 import { AvailableMeetController } from "./controllers/Meet/Available";
+import { EditEventController } from "./controllers/Event/Edit";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -56,6 +57,7 @@ const updateCharController = new UpdateCharController();
 //event controller
 
 const createEventController = new CreateEventController();
+const editEventController = new EditEventController();
 const deleteEventController = new DeleteEventController();
 const listEventController = new ListEventController();
 const getEventController = new GetEventController();
@@ -117,6 +119,7 @@ router.get(
 router.post("/events", ensureAuthenticated, createEventController.handle);
 router.get("/events", ensureAuthenticated, listEventController.handle);
 router.get("/events/:id", ensureAuthenticated, getEventController.handle);
+router.put("/events/:id", ensureAuthenticated, editEventController.handle);
 router.delete("/events/:id", ensureAuthenticated, deleteEventController.handle);
 router.get(
   "/events/:id/meetings",

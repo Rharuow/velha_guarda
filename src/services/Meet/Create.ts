@@ -23,6 +23,8 @@ export class CreateMeetService {
 
       await meetRepository.save(meet);
 
+      console.log("Meet Create with success");
+
       return {
         status: 200,
         message: "Meet Create with success",

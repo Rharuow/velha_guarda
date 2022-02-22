@@ -150,12 +150,7 @@ router.get(
   ensureAuthenticated,
   getMeetController.handle
 );
-router.post(
-  "/meetings",
-  ensureAuthenticated,
-  isAvalibleDate,
-  createMeetController.handle
-);
+router.post("/meetings", ensureAuthenticated, createMeetController.handle);
 router.put("/meetings", ensureAuthenticated, finishedMeetController.handle);
 router.put(
   "/meetings/:id/chars/:char_id",

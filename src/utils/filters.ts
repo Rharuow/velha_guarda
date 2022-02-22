@@ -7,21 +7,27 @@ export type FiltersType = {
   event?: {
     name?: string;
   };
+  available: boolean | undefined;
 };
 
 export const getMeetFilters = (filters: FiltersType | undefined) => {
   const filtersCreated = {};
 
   if (filters) {
-    if (filters.start_at_gteq && filters.start_at_lteq)
+    if (filters.start_at_gteq && filters.start_at_lteq) {
       _.merge(filtersCreated, {
         start_at: Between(filters.start_at_gteq, filters.start_at_lteq),
       });
-    if (filters.event && filters.event.name)
+    }
+    if (filters.event && filters.event.name !== null)
       _.merge(filtersCreated, {
         event: {
           name: ILike(`%${filters.event.name}%`),
         },
+      });
+    if (filters.available !== undefined)
+      _.merge(filtersCreated, {
+        available: filters.available,
       });
   }
 

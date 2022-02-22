@@ -4,7 +4,7 @@ import { FiltersType } from "../../utils/filters";
 
 export type QueryParams = {
   page: string | undefined;
-  filters?: FiltersType;
+  filters?: FiltersType | string;
 };
 
 export class ListMeetController {

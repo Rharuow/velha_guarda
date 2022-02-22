@@ -4,17 +4,15 @@ import { isPastDate } from "../../utils/dateValidate";
 import { FiltersType, getMeetFilters } from "../../utils/filters";
 
 export class ListMeetService {
-  async execute(page: number, filters: FiltersType) {
+  async execute(page: number, filters: FiltersType | any) {
     const meetRepository = getCustomRepository(MeetRepository);
-
-    const setFilter = () => getMeetFilters(filters);
 
     try {
       const meetings = await meetRepository.findAndCount({
         relations: ["chars", "event"],
         take: 5,
         skip: 5 * (page + 1) - 5,
-        where: setFilter(),
+        where: getMeetFilters(filters),
       });
 
       for (const meet of meetings[0]) {
@@ -23,7 +21,6 @@ export class ListMeetService {
           meet.available = false;
         }
       }
-
       return {
         status: 200,
         message: "Meet List with success",

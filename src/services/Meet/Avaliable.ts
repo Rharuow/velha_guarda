@@ -6,9 +6,9 @@ export class AvailableMeetService {
     const meetRepository = getCustomRepository(MeetRepository);
 
     try {
-      const meet = await meetRepository.update(id, { available });
+      await meetRepository.update(id, { available });
 
-      // const meet = await meetRepository.findOneOrFail(id);
+      const meet = await meetRepository.findOneOrFail(id);
 
       return {
         status: 200,

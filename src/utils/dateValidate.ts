@@ -21,5 +21,8 @@ export const isPastDate = (date: Date) => {
     .plus({ hours: offset > 0 ? offset / 60 : offset })
     .setZone("utc");
 
+  console.log("START_AT = ", startAt);
+  console.log("NOW = ", now);
+
   return startAt < now;
 };

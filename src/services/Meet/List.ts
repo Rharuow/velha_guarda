@@ -15,12 +15,14 @@ export class ListMeetService {
         where: getMeetFilters(filters),
       });
 
-      // for (const meet of meetings[0]) {
-      //   if (meet.available && isPastDate(meet.start_at)) {
-      //     await meetRepository.update(meet.id, { available: false });
-      //     meet.available = false;
-      //   }
-      // }
+      for (const meet of meetings[0]) {
+        isPastDate(meet.start_at);
+        // if (meet.available && isPastDate(meet.start_at)) {
+        // await meetRepository.update(meet.id, { available: false });
+        // meet.available = false;
+        console.log("isPast?");
+        // }
+      }
 
       return {
         status: 200,

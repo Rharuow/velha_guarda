@@ -17,11 +17,12 @@ export const isPastDate = (date: Date) => {
 
   const offset = DateTime.local().offset;
 
-  const now = DateTime.local()
+  const now = DateTime.now()
     .plus({ hours: offset > 0 ? offset / 60 : 0 })
     .setZone("utc");
 
   console.log("START_AT = ", startAt.get("hour"));
+  console.log("NOW = ", now.get("hour"));
   console.log("NOW (offset) = ", now.get("offset"));
   console.log("NOW (timezone) = ", now.get("zone"));
   console.log("NOW (timezone name) = ", now.get("zoneName"));

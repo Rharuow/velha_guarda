@@ -18,7 +18,7 @@ export const isPastDate = (date: Date) => {
   const offset = DateTime.local().offset;
 
   const now = DateTime.local()
-    .plus({ hours: offset > 0 ? offset / 60 : offset })
+    .plus({ hours: offset > 0 ? offset / 60 : 0 })
     .setZone("utc");
 
   console.log("START_AT = ", startAt.get("hour"));

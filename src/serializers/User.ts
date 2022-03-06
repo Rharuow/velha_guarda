@@ -101,7 +101,7 @@ const usersWithEventsSerializer = (user: User) => {
       name: user.name,
       email: user.email,
       events: user.events,
-    }
+    };
   } catch (error) {
     console.log("userWithEventsSerializer error = ", error.message);
     throw new Error(` ${error.message}`);
@@ -113,5 +113,5 @@ export {
   userSerializer,
   userWithCharsSerializer,
   usersWithCharsSerializer,
-  usersWithEventsSerializer
+  usersWithEventsSerializer,
 };

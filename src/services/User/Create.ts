@@ -1,12 +1,9 @@
 import { hash } from "bcryptjs";
 import _ from "lodash";
 import { getCustomRepository } from "typeorm";
-import { CharRepository } from "../../repositories/CharRepository";
 import { UserRepository } from "../../repositories/UserRepository";
-import { userWithCharsSerializer } from "../../serializers/User";
 import { CreateUser } from "../../types/User";
 import { sendConfirmationToken } from "../../utils/sendgrid";
-import { CreateCharService } from "../Char/Create";
 
 export class CreateUserService {
   private generateConfirmationToken(): string {
@@ -20,18 +17,8 @@ export class CreateUserService {
     return result;
   }
 
-  async execute({
-    name,
-    chars,
-    email,
-    is_admin,
-    is_active,
-    password,
-  }: CreateUser) {
+  async execute({ name, email, is_admin, is_active, password }: CreateUser) {
     const userRepository = getCustomRepository(UserRepository);
-    const charRepository = getCustomRepository(CharRepository);
-
-    const createCharService = new CreateCharService();
 
     const token = this.generateConfirmationToken();
 
@@ -41,20 +28,9 @@ export class CreateUserService {
     );
 
     try {
-      const validadeChars = chars.filter(
-        (char, index, self) =>
-          index === self.findIndex((c) => c.name === char.name)
-      );
-
-      if (validadeChars.length < chars.length)
-        throw new Error("Duplicate Chars");
-
       const hasUser = await userRepository.userExists({ name, email });
 
       let hasChar = { message: "", status: false };
-
-      for (const char of chars)
-        hasChar = await charRepository.charExists(char.name);
 
       if (hasUser.status || hasChar.status)
         throw new Error(hasUser.status ? hasUser.message : hasChar.message);
@@ -71,9 +47,6 @@ export class CreateUserService {
       await userRepository.save(user);
       console.log("User created with success");
 
-      for (const char of chars)
-        await createCharService.execute({ ...char, user_id: user.id });
-
       await sendConfirmationToken({
         email: user.email,
         name: user.name,
@@ -83,7 +56,7 @@ export class CreateUserService {
       return {
         status: 200,
         message: "User created with success",
-        record: userWithCharsSerializer(user, chars),
+        record: user,
       };
     } catch (error) {
       console.log(`create user service > ${error.message}`);

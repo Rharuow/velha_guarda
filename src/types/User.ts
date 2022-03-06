@@ -1,5 +1,3 @@
-import { Char } from "../entities/Char";
-
 export type CreateUser = {
   name: string;
   email: string;
@@ -8,5 +6,4 @@ export type CreateUser = {
   password: string;
   secret: string;
   token: string;
-  chars: Array<Char>;
 };

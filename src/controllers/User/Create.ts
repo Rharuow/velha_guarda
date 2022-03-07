@@ -16,7 +16,7 @@ export class CreateUserController {
         record,
       });
     } catch (error) {
-      return res.status(500).json({
+      return res.status(403).json({
         message: error.message,
         where: "create user controller",
       });

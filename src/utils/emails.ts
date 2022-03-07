@@ -88,7 +88,7 @@ export const htmlSignup = (data: {
       <mj-section>
         <mj-column css-class="char">
           <mj-text>
-            <a target="_blank" href="${process.env.WEB_URL}/confirmation?email=${data.email}">Clique aqui para cadastrar um char!</a>
+            <a target="_blank" href="${process.env.WEB_URL}/confirmation?email=${data.email}&token=${data.token}">Clique aqui para cadastrar um char!</a>
           </mj-text>
         </mj-column>
       </mj-section>

@@ -32,6 +32,7 @@ import { CreateCharController } from "./controllers/Char/Create";
 import { ForgotPasswordUserController } from "./controllers/User/ForgotPassword";
 import { ChangePasswordUserController } from "./controllers/User/ChangePassword";
 import { changePasswordValidation } from "./middlewares/changePasswordValidation";
+import { CreateCharController } from "./controllers/Char/Create";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -46,9 +47,9 @@ const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
-const confirmationUserController = new ConfirmationUserController();
 const forgotPasswordUserService = new ForgotPasswordUserController();
 const changePasswordUserController = new ChangePasswordUserController();
+const confirmationUserController = new ConfirmationUserController();
 
 // session controller
 const createSessionController = new CreateSessionController();

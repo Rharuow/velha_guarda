@@ -10,6 +10,7 @@ import { GetUserController } from "./controllers/User/Get";
 import { GetCharController } from "./controllers/Char/Get";
 import { GetMembersUserController } from "./controllers/User/GetMembers";
 import { CreateEventController } from "./controllers/Event/Create";
+import { ConfirmationUserController } from "./controllers/User/Confirmation";
 import { ListEventController } from "./controllers/Event/List";
 import { CreateMeetController } from "./controllers/Meet/Create";
 import { ListMeetController } from "./controllers/Meet/List";
@@ -19,7 +20,6 @@ import { isAvalibleDate } from "./middlewares/isAvalibleDate";
 import { FinishedMeetController } from "./controllers/Meet/Finished";
 import { userCharAlreadyRegistred } from "./middlewares/userCharAlreadyRegistred";
 import { InsertCharMeetController } from "./controllers/Meet/InsertChar";
-import { ConfirmationUserController } from "./controllers/User/Confirmation";
 import { tokenVerification } from "./middlewares/tokenVerification";
 import { userIsActivated } from "./middlewares/userIsActivated";
 import { RemoveCharMeetController } from "./controllers/Meet/RemoveChar";
@@ -28,6 +28,7 @@ import { UpdateCharController } from "./controllers/Char/Update";
 import { DeleteEventController } from "./controllers/Event/Delete";
 import { AvailableMeetController } from "./controllers/Meet/Available";
 import { EditEventController } from "./controllers/Event/Edit";
+import { CreateCharController } from "./controllers/Char/Create";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -38,11 +39,11 @@ router.get("/", (req: Request, res: Response) =>
 
 // user controllers
 const createUserController = new CreateUserController();
-const confirmationUserController = new ConfirmationUserController();
 const deleteUserController = new DeleteUserController();
 const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
+const confirmationUserController = new ConfirmationUserController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -53,6 +54,7 @@ const getUserByTokenController = new GetUserByTokenController();
 const listCharsController = new ListCharsController();
 const getCharController = new GetCharController();
 const updateCharController = new UpdateCharController();
+const createCharController = new CreateCharController();
 
 //event controller
 
@@ -75,16 +77,16 @@ const availableMeetController = new AvailableMeetController();
 
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
-router.get(
-  "/users/confirmation/:email/:token",
-  tokenVerification,
-  confirmationUserController.handle
-);
 router.post("/users", createUserController.handle);
 router.delete(
   "/users/:email",
   ensureAuthenticated,
   deleteUserController.handle
+);
+router.get(
+  "/users/confirmation/:email/:token",
+  tokenVerification,
+  confirmationUserController.handle
 );
 router.get("/users/:email", ensureAuthenticated, getUserController.handle);
 router.get(
@@ -107,6 +109,7 @@ router.get("/session", ensureAuthenticated, getUserByTokenController.handle);
 
 // char resources
 router.get("/chars", listCharsController.handle);
+router.post("/chars", createCharController.handle);
 router.get("/chars/:id", ensureAuthenticated, getCharController.handle);
 router.put("/chars/:id", ensureAuthenticated, updateCharController.handle);
 router.get(

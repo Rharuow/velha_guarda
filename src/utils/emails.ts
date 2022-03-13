@@ -68,10 +68,10 @@ export const htmlSignup = (data: {
           <mj-text css-class="info">${data.name}, tudo bem?</mj-text>
           <mj-text css-class="info">Falta pouco para concluir teu cadastro. Precisamos saber qual seu principal char no tibia.</mj-text>
           <mj-text css-class="info">
-            Coloque o código abaixo na descrição do char que você escolheu para que possamos adicionar na nossa plataforma.
+            Coloque o código abaixo no comentário do char que você escolheu para que possamos adicionar na nossa plataforma.
           </mj-text>
           <mj-text css-class="danger">
-            Não é necessário apagar a descrição do seu char, só coloque o código em qualquer lugar que nós identificaremos.
+            Não é necessário apagar o comentário do seu char, só coloque o código em qualquer lugar que nós identificaremos.
           </mj-text>
         </mj-column>
       </mj-section>

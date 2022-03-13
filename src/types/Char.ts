@@ -11,6 +11,6 @@ export type CreateChar = {
   residence: string;
   sex: CharSex;
   voc: CharVoc;
-  user_id: string;
+  user_id?: string;
   user: User;
 };

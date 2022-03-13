@@ -5,16 +5,8 @@ export class ConfirmationUserService {
   async execute(email: string) {
     const userRepository = getCustomRepository(UserRepository);
 
-    const today = new Date();
-
     try {
-      const user = await userRepository.update(
-        { email },
-        {
-          is_active: true,
-          token: `${today}`,
-        }
-      );
+      const user = await userRepository.update({ email }, { is_active: true });
 
       return {
         status: 200,

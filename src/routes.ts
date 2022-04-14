@@ -29,6 +29,8 @@ import { DeleteEventController } from "./controllers/Event/Delete";
 import { AvailableMeetController } from "./controllers/Meet/Available";
 import { EditEventController } from "./controllers/Event/Edit";
 import { ForgotPasswordUserController } from "./controllers/User/ForgotPassword";
+import { ChangePasswordUserController } from "./controllers/User/ChangePassword";
+import { changePasswordValidation } from "./middlewares/changePasswordValidation";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -45,6 +47,7 @@ const listUserController = new ListUserController();
 const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
 const forgotPasswordUserService = new ForgotPasswordUserController()
+const changePasswordUserController = new ChangePasswordUserController()
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -83,6 +86,7 @@ router.get(
   confirmationUserController.handle
 );
 router.post("/users", createUserController.handle);
+router.put("/users", changePasswordValidation, changePasswordUserController.handle);
 router.delete(
   "/users/:email",
   ensureAuthenticated,

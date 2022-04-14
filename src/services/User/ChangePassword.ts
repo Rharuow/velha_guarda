@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../../repositories/UserRepository";
 
@@ -21,6 +22,23 @@ export class ChangePasswordUserService {
       const user = await userRepository.findOneOrFail({
         where: { email, token },
       });
+
+      const passwordHashed = await hash(
+        password,
+        parseInt(process.env.HASH_SALTS)
+      );
+
+      const today = new Date();
+
+      const userUpdated = await userRepository.update(user.id, { password: passwordHashed, token: `${today}` })
+
+      console.log(userUpdated)
+
+      return {
+        status: 200,
+        message: 'User ChangePassword with success',
+        record: user,
+      };
     } catch (error) {
       console.log(` = ${error.message}`);
       throw new Error(` = ${error.message}`);

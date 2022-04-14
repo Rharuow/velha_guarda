@@ -8,9 +8,13 @@ export async function changePasswordValidation(
 ) {
   const { email, token, password, password_confirmation } = req.body;
 
-  const { record } = await listCharService.execute();
+  if (
+    !email ||
+    !token ||
+    !password ||
+    !password_confirmation ||
+    password !== password_confirmation
+  ) return res.status(401).json({ message: "Validantion failed" })
 
-  return res.status(401).json({
-    message: "Validation fields failed",
-  });
+  return next();
 }

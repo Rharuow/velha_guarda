@@ -30,6 +30,8 @@ import { AvailableMeetController } from "./controllers/Meet/Available";
 import { EditEventController } from "./controllers/Event/Edit";
 import { CreateCharController } from "./controllers/Char/Create";
 import { ForgotPasswordUserController } from "./controllers/User/ForgotPassword";
+import { ChangePasswordUserController } from "./controllers/User/ChangePassword";
+import { changePasswordValidation } from "./middlewares/changePasswordValidation";
 
 const router = Router();
 router.get("/", (req: Request, res: Response) =>
@@ -46,6 +48,7 @@ const getUserController = new GetUserController();
 const getMembersUserController = new GetMembersUserController();
 const confirmationUserController = new ConfirmationUserController();
 const forgotPasswordUserService = new ForgotPasswordUserController();
+const changePasswordUserController = new ChangePasswordUserController();
 
 // session controller
 const createSessionController = new CreateSessionController();
@@ -80,6 +83,11 @@ const availableMeetController = new AvailableMeetController();
 // user resources
 router.get("/users", ensureAuthenticated, listUserController.handle);
 router.post("/users", createUserController.handle);
+router.put(
+  "/users",
+  changePasswordValidation,
+  changePasswordUserController.handle
+);
 router.delete(
   "/users/:email",
   ensureAuthenticated,

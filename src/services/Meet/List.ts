@@ -14,7 +14,7 @@ export class ListMeetService {
         skip: 5 * (page + 1) - 5,
         where: getMeetFilters(filters),
       });
-      isPastDate(meetings[0][0].start_at);
+      meetings[0][0] && isPastDate(meetings[0][0].start_at);
       for (const meet of meetings[0]) {
         if (meet.available && isPastDate(meet.start_at)) {
           await meetRepository.update(meet.id, { available: false });

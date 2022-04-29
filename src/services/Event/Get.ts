@@ -22,8 +22,8 @@ export class GetEventService {
         record: withMeetings ? eventWithMeetings : event,
       };
     } catch (error) {
-      console.log(` = ${error.message}`);
-      throw new Error(` = ${error.message}`);
+      console.log("Get events service = ", error.message);
+      throw new Error(`Get events service =  error.message`);
     }
   }
 }

@@ -28,7 +28,6 @@ import { UpdateCharController } from "./controllers/Char/Update";
 import { DeleteEventController } from "./controllers/Event/Delete";
 import { AvailableMeetController } from "./controllers/Meet/Available";
 import { EditEventController } from "./controllers/Event/Edit";
-import { CreateCharController } from "./controllers/Char/Create";
 import { ForgotPasswordUserController } from "./controllers/User/ForgotPassword";
 import { ChangePasswordUserController } from "./controllers/User/ChangePassword";
 import { changePasswordValidation } from "./middlewares/changePasswordValidation";
